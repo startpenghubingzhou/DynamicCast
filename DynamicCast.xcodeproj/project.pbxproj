@@ -330,6 +330,7 @@
 		02FC5D9E25D817DE005F77F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include/opencv4,
@@ -347,6 +348,7 @@
 		02FC5D9F25D817DE005F77F5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include/opencv4,

@@ -24,7 +24,7 @@ CVHelper::CVHelper(const char* filename) {
 CVHelper::~CVHelper() {
 }
 
-string CVHelper::prasecolor_pixel() {
+void CVHelper::prasecolor_pixel(promise<string>* instance) {
     Rect rect;
     Mat result;
     Mat bgModel, fgModel;
@@ -33,6 +33,10 @@ string CVHelper::prasecolor_pixel() {
     int* numptr = reinterpret_cast<int*>(&num_flowers);
     int loc = 0;
     hsvdata data;
+    Mutex mtx;
+
+    // lock this fucnction until it set value to the promise instance
+    mtx.lock();
 
     rect.width = image.rows;
     rect.height = image.cols;
@@ -40,7 +44,7 @@ string CVHelper::prasecolor_pixel() {
     grabCut(image, result, rect, bgModel, fgModel, 5, GC_INIT_WITH_RECT);
     compare(result, GC_PR_FGD, result, CMP_EQ);
 
-    SAFEPOINTER(tmp, new Mat(image.size(), CV_8UC3, Scalar(255, 255, 255)), return name);
+    SAFEPOINTER(tmp, new Mat(image.size(), CV_8UC3, Scalar(255, 255, 255)), return);
 
     image.copyTo(*tmp, result);
 
@@ -76,7 +80,7 @@ string CVHelper::prasecolor_pixel() {
     }
 
     // Now that we have detected all the pixels, we will compare with the nums
-    for (int i = 1; i < 6; i++) {
+    for (int i = 0; i < 5; i++) {
         if (numptr[loc] <= numptr[i + 1]) {
             loc = i + 1;
         }
@@ -116,7 +120,10 @@ string CVHelper::prasecolor_pixel() {
 
     SafeReleaseNULL(tmp);
 
-    return name;
+    instance->set_value(name);
+
+    // unlock the function since we have set value
+    mtx.unlock();
 }
 
 bool CVHelper::hsvinrange(hsvdata pixel, colorrange range) {

@@ -14,10 +14,14 @@
 #include <string>
 #include "CVHelper.hpp"
 
+using namespace std; //NOLINT
+
 /* This file declared the main function and some global data and functions.*/
 
-CVHelper* based;
-CVHelper* test;
+CVHelper* pre_pic;
+CVHelper* now_pic;
+thread* pre_t;
+thread* now_t;
 
 void detectargs(int argc, char **argv);
 int main(int argc, char **argv);

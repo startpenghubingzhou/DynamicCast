@@ -13,10 +13,13 @@
 
 #include <iostream>
 #include <string>
+#include <thread> //NOLINT
+#include <future> //NOLINT
 
 #include <opencv2/opencv.hpp>
 
 using std::string;
+using std::promise;
 using namespace cv; //NOLINT
 
 /*!
@@ -77,12 +80,12 @@ class CVHelper{
      * @discussion
      * This function will automatically prase the HSV data
      * of image using OpenCV APIs and get the color that the
-     * run this function to get the color of the flower.
-     *
-     * @result a string with the color name of the flower.
+     * run this function to get the color of the flower. It
+     * will write data into a promise with a thread, so you
+     * should use a thread to create and execute it.
      */
 
-    string prasecolor_pixel();
+    void prasecolor_pixel(promise<string>* instance);
 
  private:
     Mat image;

@@ -33,7 +33,7 @@ if (!a) {                                                   \
     op_failed;                                              \
 }
 
-
+// Safe release macro, based on OSSafeReleaseNULL
 #define SafeReleaseNULL(ptr)                                \
 do {                                                        \
     if (ptr) {                                              \
@@ -42,6 +42,7 @@ do {                                                        \
     }                                                       \
 }while (0)
 
+// color_range: a struct that described the range of a color in HSV space
 typedef struct color_range {
     int h_min;
     int h_max;
@@ -51,6 +52,7 @@ typedef struct color_range {
     int v_max;
 }colorrange;
 
+// color_range_hsv: a struct containing the range data of colors in HSV space
 static struct color_range_hsv {
     colorrange pink = {160, 180, 0, 255, 0, 255};
     colorrange black = {0, 180, 0, 255, 0, 46};
@@ -66,14 +68,19 @@ static struct color_range_hsv {
     colorrange purple = {122, 155, 43, 255, 46, 255};
 }hsvrange;
 
+// hsv_pixel_data: a struct that described the hsv data for one pixel
 typedef struct hsv_pixel_data {
     int h, s, v;
 }hsvdata;
 
+/* num_of_the_color: a struct that described the number of pixels every
+   image having with the flower */
 typedef struct num_of_the_color {
     int pink, white, red, green, blue, purple;
 }colornum;
 
+/* hsv_color_loaction: a enum that described the location of every colors
+   in num_of_the_color */
 typedef enum hsv_color_loaction {
     loc_pink = 0,
     loc_white = 1,
@@ -82,4 +89,5 @@ typedef enum hsv_color_loaction {
     loc_blue = 4,
     loc_purple = 5
 }loc_color;
+
 #endif /* Basedefs_h */

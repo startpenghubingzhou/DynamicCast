@@ -16,8 +16,7 @@
 
 #include <opencv2/opencv.hpp>
 
-
-using namespace std; //NOLINT
+using std::string;
 using namespace cv; //NOLINT
 
 /*!
@@ -73,16 +72,14 @@ class CVHelper{
      * @function prasecolor_pixel
      *
      * @abstract
-     * Create the RGB data of file.
+     * prase the color data of the image.
      *
      * @discussion
-     * This function will automatically create the RGB data
-     * of image using OpenCV APIs and copy it to the interal
-     * buffer. When you have created the CVHelper instance
-     * successfully, you should call this function firstly
-     * to create the RGB data.
+     * This function will automatically prase the HSV data
+     * of image using OpenCV APIs and get the color that the
+     * run this function to get the color of the flower.
      *
-     * @result Returns true if succeeed, or false.
+     * @result a string with the color name of the flower.
      */
 
     string prasecolor_pixel();

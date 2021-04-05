@@ -20,6 +20,7 @@
 
 using std::string;
 using std::promise;
+using std::thread;
 using namespace cv; //NOLINT
 
 /*!
@@ -94,7 +95,15 @@ class CVHelper{
 
     colornum num_flowers = {0};
 
+    thread* cut;
+
+    Mutex lock;
+
+    fscore* calculate_score(dscore* src);
+
     bool hsvinrange(hsvdata pixel, colorrange range);
+
+    void convert_hsv();
 };
 
 #endif /* CVHelper_hpp */

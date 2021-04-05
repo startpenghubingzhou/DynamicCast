@@ -24,23 +24,17 @@ CVHelper::CVHelper(const char* filename) {
 CVHelper::~CVHelper() {
 }
 
-void CVHelper::prasecolor_pixel(promise<string>* instance) {
+void CVHelper::convert_hsv() {
     Rect rect;
     Mat result;
     Mat bgModel, fgModel;
     Mat* tmp;
-    string name = "unknown";
-    int* numptr = reinterpret_cast<int*>(&num_flowers);
-    int loc = 0;
-    hsvdata data;
-    Mutex mtx;
-
-    // lock this fucnction until it set value to the promise instance
-    mtx.lock();
+    Mat tmp2;
 
     rect.width = image.rows;
     rect.height = image.cols;
 
+    // use grabcut to cut the background
     grabCut(image, result, rect, bgModel, fgModel, 5, GC_INIT_WITH_RECT);
     compare(result, GC_PR_FGD, result, CMP_EQ);
 
@@ -48,7 +42,23 @@ void CVHelper::prasecolor_pixel(promise<string>* instance) {
 
     image.copyTo(*tmp, result);
 
-    cvtColor(*tmp, imgnobg_hsv, COLOR_BGR2HSV);
+    cvtColor(*tmp, tmp2, COLOR_BGR2HSV);
+
+    imgnobg_hsv = tmp2.clone();
+
+    SafeReleaseNULL(tmp);
+}
+
+void CVHelper::prasecolor_pixel(promise<string>* instance) {
+    string name = "unknown";
+    int* numptr = reinterpret_cast<int*>(&num_flowers);
+    int loc = 0;
+    hsvdata data;
+
+    convert_hsv();
+
+    // lock this fucnction until it set value to the promise instance
+    lock.try_lock();
 
     for (int i = 0; i < imgnobg_hsv.rows; i++) {
         for (int j = 0; j < imgnobg_hsv.cols; j++) {
@@ -118,12 +128,24 @@ void CVHelper::prasecolor_pixel(promise<string>* instance) {
 
     funcprint("the flower's color is: %s\n", name.c_str());
 
-    SafeReleaseNULL(tmp);
-
     instance->set_value(name);
 
     // unlock the function since we have set value
-    mtx.unlock();
+    lock.unlock();
+}
+
+fscore* CVHelper::calculate_score(dscore* src) {
+    fscore* score_data;
+
+    SAFEPOINTER(score_data, new fscore, return nullptr)
+
+    score_data->drytimescore = CAL_DRY(CAL_DRYRATIO(src->k, src->b, src->t));
+    score_data->transferredscore = CAL_PERCENT(src->percent_trans);
+    score_data->browningscore = CAL_PERCENT(src->percent_brown);
+    score_data->fadescore = CAL_PERCENT(src->percent_fade);
+    score_data->finalscore = CAL_FINAL(score_data->browningscore, score_data->drytimescore, score_data->transferredscore, score_data->fadescore);
+
+    return score_data;
 }
 
 bool CVHelper::hsvinrange(hsvdata pixel, colorrange range) {
@@ -131,3 +153,4 @@ bool CVHelper::hsvinrange(hsvdata pixel, colorrange range) {
     INRANGE(range.s_min, pixel.s, range.s_max) &&
     INRANGE(range.v_min, pixel.v, range.v_max);
 }
+

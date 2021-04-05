@@ -14,16 +14,18 @@ int main(int argc, char **argv) {
 
     future<string>  pre_fte, now_fte;
     promise<string> pre_pme, now_pme;
+    const char* a = "/Users/penghubingzhou/Desktop/test.JPG";
+    const char* b = "/Users/penghubingzhou/Desktop/based.JPG";
 
-    detectargs(argc, argv);
+    // detectargs(argc, argv);
 
     /* Allocate two CVHelper objects to process the pictures of the flower
        before and now */
-    SAFEPOINTER(pre_pic, new CVHelper(argv[1]), {
+    SAFEPOINTER(pre_pic, new CVHelper(a), {
         goto main_error;
     });
 
-    SAFEPOINTER(now_pic, new CVHelper(argv[2]), {
+    SAFEPOINTER(now_pic, new CVHelper(b), {
         goto main_error;
     });
 

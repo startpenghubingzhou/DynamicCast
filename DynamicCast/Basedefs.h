@@ -9,14 +9,22 @@
 #ifndef Basedefs_h
 #define Basedefs_h
 
+#include <stdlib.h>
+
 /* This files included all the definations and structures
    that the project used. */
-
 #define FUNCNAME "DynamicCast"  // Funcion name
 #define VNAME(a) (#a)  // Variable name
 
 // determine if the number in range
 #define INRANGE(a, b, c) ((b >= a) && (b <= c))
+
+// Score calculation
+#define CAL_PERCENT(percent) 100 * (1 - percent)
+#define CAL_FINAL(brown, dry, trans, fade) brown * 0.4 + dry * 0.3 + trans * 0.2 + fade * 0.1
+#define CAL_TRANSRATIO(x, y) abs(x - y) / x
+#define CAL_DRY(dryratio) dryratio <= 1 ? (70 - 30 * dryratio) : 0
+#define CAL_DRYRATIO(k, b, t) ceil(k * t + b)
 
 // Format printf
 #define funcprint(fmt, a...)                                \
@@ -41,6 +49,9 @@ do {                                                        \
         ptr = nullptr;                                      \
     }                                                       \
 }while (0)
+
+// uint8_t: a number that between 0~255
+typedef unsigned char uint8_t;
 
 // color_range: a struct that described the range of a color in HSV space
 typedef struct color_range {
@@ -90,4 +101,25 @@ typedef enum hsv_color_loaction {
     loc_purple = 5
 }loc_color;
 
+/* core_calulate_data: a struct containing the data to calculate the score
+   of a flower */
+typedef struct score_calulate_data {
+    double k, b;
+    int t;
+    double percent_brown;
+    double percent_trans;
+    double percent_fade;
+    double percent_drytime;
+} dscore;
+
+/* flower_data: a struct containing the data of the flower
+   that will be written to the database. */
+typedef struct flower_data {
+    uint8_t browningscore;
+    uint8_t drytimescore;
+    uint8_t transferredscore;
+    uint8_t fadescore;
+    uint8_t finalscore;
+    uint8_t grade;
+}fscore;
 #endif /* Basedefs_h */

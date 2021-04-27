@@ -9,8 +9,6 @@
 #ifndef Basedefs_h
 #define Basedefs_h
 
-#include <stdlib.h>
-
 /* This files included all the definations and structures
    that the project used. */
 #define FUNCNAME "DynamicCast"  // Funcion name
@@ -22,7 +20,7 @@
 // Score calculation
 #define CAL_PERCENT(percent) 100 * (1 - percent)
 #define CAL_FINAL(brown, dry, trans, fade) brown * 0.4 + dry * 0.3 + trans * 0.2 + fade * 0.1
-#define CAL_TRANSRATIO(x, y) abs(x - y) / x
+#define CAL_TRANSRATIO(x, y) abs(x - y) / 180
 #define CAL_DRY(dryratio) dryratio <= 1 ? (70 - 30 * dryratio) : 0
 #define CAL_DRYRATIO(k, b, t) ceil(k * t + b)
 
@@ -82,6 +80,7 @@ static struct color_range_hsv {
 // hsv_pixel_data: a struct that described the hsv data for one pixel
 typedef struct hsv_pixel_data {
     int h, s, v;
+    int color;
 }hsvdata;
 
 /* num_of_the_color: a struct that described the number of pixels every

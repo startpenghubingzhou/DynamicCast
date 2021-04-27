@@ -11,16 +11,11 @@
 
 #include "Basedefs.h"
 
-#include <iostream>
-#include <string>
-#include <thread> //NOLINT
 #include <future> //NOLINT
 
 #include <opencv2/opencv.hpp>
 
-using std::string;
-using std::promise;
-using std::thread;
+using namespace std; //NOLINT
 using namespace cv; //NOLINT
 
 /*!
@@ -86,24 +81,32 @@ class CVHelper{
      * should use a thread to create and execute it.
      */
 
-    void prasecolor_pixel(promise<string>* instance);
+    void prasecolor_pixel(promise<double>* instance);
 
  private:
     Mat image;
 
     Mat imgnobg_hsv;
 
-    colornum num_flowers = {0};
+    colornum num_flowers = {0, 0, 0, 0, 0, 0};
 
     thread* cut;
 
     Mutex lock;
 
-    fscore* calculate_score(dscore* src);
+    fscore* generate_score(dscore* src);
 
     bool hsvinrange(hsvdata pixel, colorrange range);
 
     void convert_hsv();
+
+    double prase_brown();
+
+    double prase_trans();
+
+    double prase_fade();
+
+    double prase_drytime();
 };
 
 #endif /* CVHelper_hpp */

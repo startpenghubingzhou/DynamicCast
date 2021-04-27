@@ -8,15 +8,18 @@
 
 #include "CVHelper.hpp"
 
+#include <string>
+#include <vector>
+
 CVHelper::CVHelper(const char* filename) {
     string path = filename;
-    cvtColor(imread(path), image, COLOR_BGR2RGB);
 
     image = imread(path);
 
     // judge the image is empty
     if (image.empty()) {
-        funcprint("could not find image!\n");
+        funcprint("could not convert image!\n");
+        delete this;
         return;
     }
 }
@@ -49,11 +52,17 @@ void CVHelper::convert_hsv() {
     SafeReleaseNULL(tmp);
 }
 
-void CVHelper::prasecolor_pixel(promise<string>* instance) {
+void CVHelper::prasecolor_pixel(promise<double>* instance) {
     string name = "unknown";
     int* numptr = reinterpret_cast<int*>(&num_flowers);
-    int loc = 0;
+    int loc = loc_pink;
     hsvdata data;
+    vector<hsvdata> picdata;
+    uint64_t hfull = 0;
+    uint64_t num;
+    uint64_t havg;
+
+    bool isbackground = false;
 
     convert_hsv();
 
@@ -68,37 +77,54 @@ void CVHelper::prasecolor_pixel(promise<string>* instance) {
 
             // Now we will determine the pixel color
             if (hsvinrange(data, hsvrange.pink)) {
+                data.color = loc_pink;
                 num_flowers.pink++;
             } else if (hsvinrange(data, hsvrange.white)) {
                 /* The white pixel may be the background, so
                 we should ignore them */
                 if (data.h != 0 || data.s != 0 || data.v != 255) {
+                    data.color = loc_white;
                     num_flowers.white++;
+                    isbackground = false;
+                } else {
+                    isbackground = true;
                 }
             } else if (hsvinrange(data, hsvrange.red1) || hsvinrange(data, hsvrange.red2)) {
+                data.color = loc_red;
                 num_flowers.red++;
             } else if (hsvinrange(data, hsvrange.green)) {
+                data.color = loc_green;
                 num_flowers.green++;
             } else if (hsvinrange(data, hsvrange.blue)) {
+                data.color = loc_blue;
                 num_flowers.blue++;
             } else if (hsvinrange(data, hsvrange.purple)) {
+                data.color = loc_purple;
                 num_flowers.purple++;
             } else {
                 continue;
+            }
+
+            // if not background pixel, we should push it in the vector.
+            if (!isbackground) {
+                picdata.push_back(data);
             }
         }
     }
 
     // Now that we have detected all the pixels, we will compare with the nums
     for (int i = 0; i < 5; i++) {
-        if (numptr[loc] <= numptr[i + 1]) {
+        int a = numptr[i];
+        int b = numptr[i + 1];
+
+        if (a <= b) {
             loc = i + 1;
         }
     }
 
     /* Hack: This is a dirty method to detect the pink flower
-     cause there's no definite pink range. Will fix it in
-     the future. */
+       cause there's no definite pink range. Will fix it in
+       the future. */
     if (loc == loc_red && num_flowers.pink != 0) {
         loc = loc_pink;
     }
@@ -126,15 +152,28 @@ void CVHelper::prasecolor_pixel(promise<string>* instance) {
             break;
     }
 
-    funcprint("the flower's color is: %s\n", name.c_str());
+    for (num = 0; num < picdata.size(); num++) {
+        /* Hack: if we identified the flower as pink flower,
+           we need to calculate all red and pink data because
+           we can take it for granted that the red pixel is pink. */
+        if (loc == loc_pink && (picdata[num].color == loc_pink || picdata[num].color == loc_red)) {
+            hfull += picdata[num].h;
+        } else if (picdata[num].color == loc) {
+            hfull += picdata[num].h;
+        }
+    }
 
-    instance->set_value(name);
+    havg = hfull / num;
+
+    funcprint("the flower's color is: %s, the h average data is : %llu\n", name.c_str(), havg);
+
+    instance->set_value(havg);
 
     // unlock the function since we have set value
     lock.unlock();
 }
 
-fscore* CVHelper::calculate_score(dscore* src) {
+fscore* CVHelper::generate_score(dscore* src) {
     fscore* score_data;
 
     SAFEPOINTER(score_data, new fscore, return nullptr)

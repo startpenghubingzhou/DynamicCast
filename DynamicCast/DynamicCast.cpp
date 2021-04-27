@@ -2,30 +2,31 @@
 //  DynamicCast.cpp
 //  DynamicCast
 //
-//  Created by penghubingzhou on 2021/2/13.
+//  Created by penghubingzhou on 2021/4/27.
 //  Copyright © 2021 penghubingzhou. All rights reserved.
 //
-#include <iostream>
 
-#include "DynamicCast.hpp"
+#include "DynamicCast.h"
 
-int main(int argc, char **argv) {
-    string pre, now;
+void myfunc() {
+    printf("test!\n");
+}
 
-    future<string>  pre_fte, now_fte;
-    promise<string> pre_pme, now_pme;
-    const char* a = "/Users/penghubingzhou/Desktop/test.JPG";
-    const char* b = "/Users/penghubingzhou/Desktop/based.JPG";
+int cast(int argc, char **argv) {
+    double pre, now, transratio;
 
-    // detectargs(argc, argv);
+    future<double> pre_fte, now_fte;
+    promise<double> pre_pme, now_pme;
+
+    detectargs(argc, argv);
 
     /* Allocate two CVHelper objects to process the pictures of the flower
-       before and now */
-    SAFEPOINTER(pre_pic, new CVHelper(a), {
+     before and now */
+    SAFEPOINTER(pre_pic, new CVHelper(argv[1]), {
         goto main_error;
     });
 
-    SAFEPOINTER(now_pic, new CVHelper(b), {
+    SAFEPOINTER(now_pic, new CVHelper(argv[2]), {
         goto main_error;
     });
 
@@ -49,15 +50,13 @@ int main(int argc, char **argv) {
     pre = pre_fte.get();
     now = now_fte.get();
 
-    if (pre == now) {
-        funcprint("color has not changed!\n");
-    } else {
-        funcprint("color has changed from %s to %s!\n", pre.c_str(), now.c_str());
-    }
+    transratio = CAL_TRANSRATIO(pre, now);
+
+    printf("the trans ratio is: %.1f%%\n", transratio * 100);
 
     releasesource();
 
-    return 0;
+    return transratio * 100;
 
 main_error:
     releasesource();

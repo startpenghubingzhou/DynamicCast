@@ -7,31 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		023D8ADA263B153100E42F2D /* libopencv_core.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 023D8AD9263B153100E42F2D /* libopencv_core.4.5.dylib */; };
+		023D8ADC263B154300E42F2D /* libopencv_imgproc.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 023D8ADB263B154300E42F2D /* libopencv_imgproc.4.5.dylib */; };
+		023D8ADE263B155000E42F2D /* libopencv_imgcodecs.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 023D8ADD263B155000E42F2D /* libopencv_imgcodecs.4.5.dylib */; };
 		025CF6C62637362300FE0AFF /* DynamicCast.h in Headers */ = {isa = PBXBuildFile; fileRef = 02B4C4BE26372ED200FF4EDA /* DynamicCast.h */; };
 		025CF6C72637362300FE0AFF /* CVHelper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 021EB79E2601EF4200B0BD76 /* CVHelper.hpp */; };
 		025CF6C82637362300FE0AFF /* Basedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 0254D0B22610C416001462F2 /* Basedefs.h */; };
 		02B4C4C026372F6100FF4EDA /* DynamicCast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02B4C4BF26372F6100FF4EDA /* DynamicCast.cpp */; };
-		02B4C5CF263730FD00FF4EDA /* libopencv_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 02394C6A2605036B00A013D0 /* libopencv_core.dylib */; };
-		02B4C5D02637310200FF4EDA /* libopencv_imgcodecs.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 02394C6C2605039800A013D0 /* libopencv_imgcodecs.dylib */; };
-		02B4C5D12637310400FF4EDA /* libopencv_imgproc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 02394C6E260503A000A013D0 /* libopencv_imgproc.dylib */; };
-		02B4C5D22637310A00FF4EDA /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 021AC7A02610F475007F01B9 /* libsqlite3.0.dylib */; };
 		02B4C5D32637336A00FF4EDA /* CVHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 021AC7A326110732007F01B9 /* CVHelper.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		021AC7A02610F475007F01B9 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = ../../../../usr/local/Cellar/sqlite/3.35.2/lib/libsqlite3.0.dylib; sourceTree = "<group>"; };
 		021AC7A326110732007F01B9 /* CVHelper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CVHelper.cpp; path = DynamicCast/CVHelper.cpp; sourceTree = SOURCE_ROOT; };
 		021EB79E2601EF4200B0BD76 /* CVHelper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CVHelper.hpp; sourceTree = "<group>"; };
-		02394C6A2605036B00A013D0 /* libopencv_core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.dylib; path = ../../../../usr/local/lib/libopencv_core.dylib; sourceTree = "<group>"; };
-		02394C6C2605039800A013D0 /* libopencv_imgcodecs.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgcodecs.dylib; path = ../../../../usr/local/lib/libopencv_imgcodecs.dylib; sourceTree = "<group>"; };
-		02394C6E260503A000A013D0 /* libopencv_imgproc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgproc.dylib; path = ../../../../usr/local/lib/libopencv_imgproc.dylib; sourceTree = "<group>"; };
+		023D8AD9263B153100E42F2D /* libopencv_core.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.4.5.dylib; path = ../../../../../../usr/local/lib/libopencv_core.4.5.dylib; sourceTree = "<group>"; };
+		023D8ADB263B154300E42F2D /* libopencv_imgproc.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgproc.4.5.dylib; path = ../../../../../../usr/local/lib/libopencv_imgproc.4.5.dylib; sourceTree = "<group>"; };
+		023D8ADD263B155000E42F2D /* libopencv_imgcodecs.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgcodecs.4.5.dylib; path = ../../../../../../usr/local/lib/libopencv_imgcodecs.4.5.dylib; sourceTree = "<group>"; };
 		0254D0B22610C416001462F2 /* Basedefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Basedefs.h; sourceTree = "<group>"; };
-		02A6B25826378DD40001CAF1 /* haha.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = haha.h; sourceTree = "<group>"; };
-		02A6B25A26378DD40001CAF1 /* haha.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = haha.m; sourceTree = "<group>"; };
 		02B4C4B426372D2800FF4EDA /* libDynamicCast.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libDynamicCast.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		02B4C4BE26372ED200FF4EDA /* DynamicCast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicCast.h; sourceTree = "<group>"; };
 		02B4C4BF26372F6100FF4EDA /* DynamicCast.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DynamicCast.cpp; path = DynamicCast/DynamicCast.cpp; sourceTree = SOURCE_ROOT; };
-		02E1C1FF2605E6A700ADE9D4 /* libopencv_highgui.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_highgui.dylib; path = ../../../../usr/local/lib/libopencv_highgui.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,10 +34,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02B4C5CF263730FD00FF4EDA /* libopencv_core.dylib in Frameworks */,
-				02B4C5D02637310200FF4EDA /* libopencv_imgcodecs.dylib in Frameworks */,
-				02B4C5D12637310400FF4EDA /* libopencv_imgproc.dylib in Frameworks */,
-				02B4C5D22637310A00FF4EDA /* libsqlite3.0.dylib in Frameworks */,
+				023D8ADA263B153100E42F2D /* libopencv_core.4.5.dylib in Frameworks */,
+				023D8ADC263B154300E42F2D /* libopencv_imgproc.4.5.dylib in Frameworks */,
+				023D8ADE263B155000E42F2D /* libopencv_imgcodecs.4.5.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,18 +53,6 @@
 			name = "Header File";
 			sourceTree = "<group>";
 		};
-		021EB78F2601E47200B0BD76 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				021AC7A02610F475007F01B9 /* libsqlite3.0.dylib */,
-				02E1C1FF2605E6A700ADE9D4 /* libopencv_highgui.dylib */,
-				02394C6E260503A000A013D0 /* libopencv_imgproc.dylib */,
-				02394C6C2605039800A013D0 /* libopencv_imgcodecs.dylib */,
-				02394C6A2605036B00A013D0 /* libopencv_core.dylib */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		025CF6C926373A3700FE0AFF /* Code */ = {
 			isa = PBXGroup;
 			children = (
@@ -80,22 +62,22 @@
 			name = Code;
 			sourceTree = "<group>";
 		};
-		02A6B25726378DD40001CAF1 /* haha */ = {
+		02F59FB7263AF09F0010C1A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				02A6B25826378DD40001CAF1 /* haha.h */,
-				02A6B25A26378DD40001CAF1 /* haha.m */,
+				023D8AD9263B153100E42F2D /* libopencv_core.4.5.dylib */,
+				023D8ADB263B154300E42F2D /* libopencv_imgproc.4.5.dylib */,
+				023D8ADD263B155000E42F2D /* libopencv_imgcodecs.4.5.dylib */,
 			);
-			path = haha;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		02FC5D8D25D817DE005F77F5 = {
 			isa = PBXGroup;
 			children = (
 				02FC5D9825D817DE005F77F5 /* DynamicCast */,
-				02A6B25726378DD40001CAF1 /* haha */,
 				02FC5D9725D817DE005F77F5 /* Products */,
-				021EB78F2601E47200B0BD76 /* Frameworks */,
+				02F59FB7263AF09F0010C1A1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -217,10 +199,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@executable_path/../Frameworks/";
+				DYLIB_INSTALL_NAME_BASE = "@rpath/";
 				EXECUTABLE_PREFIX = lib;
 				HEADER_SEARCH_PATHS = /usr/local/include/opencv4;
-				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
+				LD_DYLIB_INSTALL_NAME = "@rpath/$(EXECUTABLE_PATH)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@loader_path/../Frameworks/opencv",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/lib,
@@ -237,10 +223,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@executable_path/../Frameworks/";
+				DYLIB_INSTALL_NAME_BASE = "@rpath/";
 				EXECUTABLE_PREFIX = lib;
 				HEADER_SEARCH_PATHS = /usr/local/include/opencv4;
-				LD_DYLIB_INSTALL_NAME = "@executable_path/../Frameworks/$(EXECUTABLE_PATH)";
+				LD_DYLIB_INSTALL_NAME = "@rpath/$(EXECUTABLE_PATH)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@loader_path/../Frameworks/opencv",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/lib,
@@ -302,6 +292,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -354,6 +345,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;

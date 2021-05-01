@@ -12,6 +12,10 @@ void myfunc() {
     printf("test!\n");
 }
 
+int main(int argc, char **argv) {
+    return cast(argc, argv);
+}
+
 int cast(int argc, char **argv) {
     double pre, now, transratio;
 

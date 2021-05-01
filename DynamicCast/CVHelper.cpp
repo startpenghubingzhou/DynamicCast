@@ -58,9 +58,9 @@ void CVHelper::prasecolor_pixel(promise<double>* instance) {
     int loc = loc_pink;
     hsvdata data;
     vector<hsvdata> picdata;
-    uint64_t hfull = 0;
+    double htmp = 0;
+    double havg = 0;
     uint64_t num;
-    uint64_t havg;
 
     bool isbackground = false;
 
@@ -156,16 +156,28 @@ void CVHelper::prasecolor_pixel(promise<double>* instance) {
         /* Hack: if we identified the flower as pink flower,
            we need to calculate all red and pink data because
            we can take it for granted that the red pixel is pink. */
-        if (loc == loc_pink && (picdata[num].color == loc_pink || picdata[num].color == loc_red)) {
-            hfull += picdata[num].h;
+        if (loc == loc_pink) {
+            if (picdata[num].color == loc_pink || picdata[num].color == loc_red) {
+                htmp = picdata[num].h;
+            }
         } else if (picdata[num].color == loc) {
-            hfull += picdata[num].h;
+            htmp = picdata[num].h;
+        } else {
+            continue;
+        }
+        
+        /* We use recursive average to calculate the average h
+           data because the total h data of a color is so large
+           that it can happen to overflow.*/
+        
+        if (num == 0) {
+            havg = htmp;
+        } else {
+            havg = CAL_RECURAVG(havg, htmp, num);
         }
     }
 
-    havg = hfull / num;
-
-    funcprint("the flower's color is: %s, the h average data is : %llu\n", name.c_str(), havg);
+    funcprint("the flower's color is: %s, the h average data is : %.3f\n", name.c_str(), havg);
 
     instance->set_value(havg);
 

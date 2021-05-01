@@ -24,6 +24,7 @@
 #define CAL_DRY(dryratio) dryratio <= 1 ? (70 - 30 * dryratio) : 0
 #define CAL_DRYRATIO(k, b, t) ceil(k * t + b)
 
+#define CAL_RECURAVG(preavg, add, num) ((num - 1) * preavg + add) / num
 // Format printf
 #define funcprint(fmt, a...)                                \
 do {                                                        \

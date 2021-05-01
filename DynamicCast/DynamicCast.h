@@ -25,6 +25,9 @@ static thread* now_t;
 
 int cast(int argc, char **argv);
 
+// for command debug
+int main(int argc, char **argv);
+
 void myfunc(void);
 void releasesource();
 void detectargs(int argc, char **argv);

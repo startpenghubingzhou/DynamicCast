@@ -9,7 +9,7 @@
 #ifndef DynamicCast_h
 #define DynamicCast_h
 
-#include "CVHelper.hpp"
+#include "FreshFlower.hpp"
 
 using namespace std; //NOLINT
 
@@ -18,11 +18,11 @@ using namespace std; //NOLINT
 extern "C" {
 #endif
 
-static CVHelper* pre_pic;
-static CVHelper* now_pic;
-static thread* pre_t;
-static thread* now_t;
-
+static fdata basedata;
+FreshFlower* preins;
+FreshFlower* nowins;
+condition_variable cvar;
+    
 int cast(int argc, char **argv);
 
 // for command debug

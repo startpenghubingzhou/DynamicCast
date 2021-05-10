@@ -11,18 +11,19 @@
 
 #include "Basedefs.h"
 
-#include <future> //NOLINT
-
+#include <future>
 #include <opencv2/opencv.hpp>
 
 using namespace std; //NOLINT
 using namespace cv; //NOLINT
 
+
+
 /*!
  * @class CVHelper
  *
  * @abstract The helper class to handle JPEG
- * data with libjpeg
+ * data with OpenCV
  *
  * @discussion
  * This class is an helper class to process
@@ -45,68 +46,52 @@ class CVHelper{
      * as this class is created. This function will
      * call the API of OpenCV and create the
      * Mat object.
-     * Please do not call this function directly, use
-     * "new" operator instead.
      */
     explicit CVHelper(const char* filename);
-
+    
     /*!
      * @function ~CVHelper
      *
      * @abstract
      * The destructor of CVHelper, release all the
      * sources that the class uses
-     *
-     * @discussion
-     * This function will be executed automatically
-     * as this class will be released. This function will
-     * call the API of libjpeg-turbo and destroy all source
-     * this class has decleared.
-     * Please do not call this function directly, use "delete"
-     * operator instead.
      */
     ~CVHelper();
 
     /*!
-     * @function prasecolor_pixel
+     * @function prase_h_average
      *
      * @abstract
-     * prase the color data of the image.
+     * prase the h average data in an image.
+     *
+     * @param h_average the double data to
+     * contain the average data.
      *
      * @discussion
      * This function will automatically prase the HSV data
-     * of image using OpenCV APIs and get the color that the
-     * run this function to get the color of the flower. It
-     * will write data into a promise with a thread, so you
-     * should use a thread to create and execute it.
+     * of image using OpenCV APIs and get the h average of
+     * the picture.
+     *
      */
+    virtual void prase_h_average(double& h_average);
 
-    void prasecolor_pixel(promise<double>* instance);
-
+protected:
+    Mat imgnobg_hsv;
+    
+    double havg = 0;
+    
+    time_t time;
+    
  private:
     Mat image;
-
-    Mat imgnobg_hsv;
-
-    colornum num_flowers = {0, 0, 0, 0, 0, 0};
-
-    thread* cut;
-
+    
+    colornum num_flowers;
+    
     Mutex lock;
-
-    fscore* generate_score(dscore* src);
-
+    
     bool hsvinrange(hsvdata pixel, colorrange range);
 
     void convert_hsv();
-
-    double prase_brown();
-
-    double prase_trans();
-
-    double prase_fade();
-
-    double prase_drytime();
 };
 
 #endif /* CVHelper_hpp */

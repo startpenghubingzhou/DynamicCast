@@ -12,16 +12,20 @@
 #include <vector>
 
 CVHelper::CVHelper(const char* filename) {
-    string path = filename;
-
-    image = imread(path);
-
+    struct stat mystat;
+    
+    image = imread(filename);
+    
     // judge the image is empty
     if (image.empty()) {
         funcprint("could not convert image!\n");
         delete this;
         return;
     }
+    
+    stat(filename, &mystat);
+    
+    time = mystat.st_birthtimespec.tv_sec;
 }
 
 CVHelper::~CVHelper() {
@@ -32,7 +36,6 @@ void CVHelper::convert_hsv() {
     Mat result;
     Mat bgModel, fgModel;
     Mat* tmp;
-    Mat tmp2;
 
     rect.width = image.rows;
     rect.height = image.cols;
@@ -45,76 +48,82 @@ void CVHelper::convert_hsv() {
 
     image.copyTo(*tmp, result);
 
-    cvtColor(*tmp, tmp2, COLOR_BGR2HSV);
-
-    imgnobg_hsv = tmp2.clone();
+    cvtColor(*tmp, imgnobg_hsv, COLOR_BGR2HSV);
 
     SafeReleaseNULL(tmp);
 }
 
-void CVHelper::prasecolor_pixel(promise<double>* instance) {
+void CVHelper::prase_h_average(double& h_average) {
     string name = "unknown";
     int* numptr = reinterpret_cast<int*>(&num_flowers);
     int loc = loc_pink;
     hsvdata data;
     vector<hsvdata> picdata;
     double htmp = 0;
-    double havg = 0;
     uint64_t num;
 
     bool isbackground = false;
 
+    memset(numptr, 0, sizeof(num_flowers));
+    
     convert_hsv();
-
-    // lock this fucnction until it set value to the promise instance
-    lock.try_lock();
-
+    
     for (int i = 0; i < imgnobg_hsv.rows; i++) {
         for (int j = 0; j < imgnobg_hsv.cols; j++) {
             data.h = imgnobg_hsv.at<Vec3b>(i, j)[0];
             data.s = imgnobg_hsv.at<Vec3b>(i, j)[1];
             data.v = imgnobg_hsv.at<Vec3b>(i, j)[2];
 
-            // Now we will determine the pixel color
+            // Now we will determine the pixel color and set color data
             if (hsvinrange(data, hsvrange.pink)) {
                 data.color = loc_pink;
                 num_flowers.pink++;
+                goto push_vector;
             } else if (hsvinrange(data, hsvrange.white)) {
                 /* The white pixel may be the background, so
-                we should ignore them */
+                we should ignore the background pixel */
                 if (data.h != 0 || data.s != 0 || data.v != 255) {
                     data.color = loc_white;
                     num_flowers.white++;
-                    isbackground = false;
+                    goto push_vector;
                 } else {
                     isbackground = true;
+                    goto push_vector;
                 }
             } else if (hsvinrange(data, hsvrange.red1) || hsvinrange(data, hsvrange.red2)) {
                 data.color = loc_red;
                 num_flowers.red++;
+                goto push_vector;
             } else if (hsvinrange(data, hsvrange.green)) {
                 data.color = loc_green;
                 num_flowers.green++;
+                goto push_vector;
             } else if (hsvinrange(data, hsvrange.blue)) {
                 data.color = loc_blue;
                 num_flowers.blue++;
+                goto push_vector;
             } else if (hsvinrange(data, hsvrange.purple)) {
                 data.color = loc_purple;
                 num_flowers.purple++;
+                goto push_vector;
             } else {
                 continue;
             }
 
+        push_vector:
             // if not background pixel, we should push it in the vector.
             if (!isbackground) {
                 picdata.push_back(data);
             }
+            
+            // reset the isbackground flag state
+            isbackground = false;
         }
     }
 
     // Now that we have detected all the pixels, we will compare with the nums
     for (int i = 0; i < 5; i++) {
-        int a = numptr[i];
+        int a = numptr[loc];
         int b = numptr[i + 1];
 
         if (a <= b) {
@@ -176,27 +185,10 @@ void CVHelper::prasecolor_pixel(promise<double>* instance) {
             havg = CAL_RECURAVG(havg, htmp, num);
         }
     }
-
+    
     funcprint("the flower's color is: %s, the h average data is : %.3f\n", name.c_str(), havg);
-
-    instance->set_value(havg);
-
-    // unlock the function since we have set value
-    lock.unlock();
-}
-
-fscore* CVHelper::generate_score(dscore* src) {
-    fscore* score_data;
-
-    SAFEPOINTER(score_data, new fscore, return nullptr)
-
-    score_data->drytimescore = CAL_DRY(CAL_DRYRATIO(src->k, src->b, src->t));
-    score_data->transferredscore = CAL_PERCENT(src->percent_trans);
-    score_data->browningscore = CAL_PERCENT(src->percent_brown);
-    score_data->fadescore = CAL_PERCENT(src->percent_fade);
-    score_data->finalscore = CAL_FINAL(score_data->browningscore, score_data->drytimescore, score_data->transferredscore, score_data->fadescore);
-
-    return score_data;
+    
+    h_average = havg;
 }
 
 bool CVHelper::hsvinrange(hsvdata pixel, colorrange range) {
@@ -204,4 +196,3 @@ bool CVHelper::hsvinrange(hsvdata pixel, colorrange range) {
     INRANGE(range.s_min, pixel.s, range.s_max) &&
     INRANGE(range.v_min, pixel.v, range.v_max);
 }
-

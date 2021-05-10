@@ -9,6 +9,11 @@
 #ifndef Basedefs_h
 #define Basedefs_h
 
+#include <iostream>
+#include <sys/stat.h>
+#include <math.h>
+#include <atomic>
+
 /* This files included all the definations and structures
    that the project used. */
 #define FUNCNAME "DynamicCast"  // Funcion name
@@ -23,8 +28,10 @@
 #define CAL_TRANSRATIO(x, y) abs(x - y) / 180
 #define CAL_DRY(dryratio) dryratio <= 1 ? (70 - 30 * dryratio) : 0
 #define CAL_DRYRATIO(k, b, t) ceil(k * t + b)
+#define CAL_DAYS(time_pre, time_now) ceil(difftime(time_pre, time_now) / (60 * 60 * 24))
 
 #define CAL_RECURAVG(preavg, add, num) ((num - 1) * preavg + add) / num
+
 // Format printf
 #define funcprint(fmt, a...)                                \
 do {                                                        \
@@ -49,8 +56,12 @@ do {                                                        \
     }                                                       \
 }while (0)
 
-// uint8_t: a number that between 0~255
-typedef unsigned char uint8_t;
+/* cvhelper_flag: a enum that described the class defination of
+   a instance of CVhelper */
+typedef enum cvhelper_flag {
+    pic_fresh = 0,
+    pic_dried = 1
+}helperflag;
 
 // color_range: a struct that described the range of a color in HSV space
 typedef struct color_range {
@@ -80,8 +91,8 @@ static struct color_range_hsv {
 
 // hsv_pixel_data: a struct that described the hsv data for one pixel
 typedef struct hsv_pixel_data {
-    int h, s, v;
-    int color;
+    uint8_t h, s, v;
+    uint8_t color;
 }hsvdata;
 
 /* num_of_the_color: a struct that described the number of pixels every
@@ -112,9 +123,9 @@ typedef struct score_calulate_data {
     double percent_drytime;
 } dscore;
 
-/* flower_data: a struct containing the data of the flower
+/* flower_score: a struct containing the data of the flower
    that will be written to the database. */
-typedef struct flower_data {
+typedef struct flower_score {
     uint8_t browningscore;
     uint8_t drytimescore;
     uint8_t transferredscore;
@@ -122,4 +133,18 @@ typedef struct flower_data {
     uint8_t finalscore;
     uint8_t grade;
 }fscore;
+
+typedef struct fresh_flower_data{
+    int k, b;
+    time_t time;
+    double h_average;
+}fdata;
+
+typedef struct dried_flower_data{
+    uint64_t s_flower;
+    uint64_t s_browning;
+    uint64_t s_fade;
+    double h_average;
+    time_t time;
+}ddata;
 #endif /* Basedefs_h */

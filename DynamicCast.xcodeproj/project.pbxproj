@@ -13,6 +13,9 @@
 		025CF6C62637362300FE0AFF /* DynamicCast.h in Headers */ = {isa = PBXBuildFile; fileRef = 02B4C4BE26372ED200FF4EDA /* DynamicCast.h */; };
 		025CF6C72637362300FE0AFF /* CVHelper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 021EB79E2601EF4200B0BD76 /* CVHelper.hpp */; };
 		025CF6C82637362300FE0AFF /* Basedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 0254D0B22610C416001462F2 /* Basedefs.h */; };
+		02842CF1264815000006C111 /* FreshFlower.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02842CEF264815000006C111 /* FreshFlower.cpp */; };
+		02842CF2264815000006C111 /* FreshFlower.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 02842CF0264815000006C111 /* FreshFlower.hpp */; };
+		02842CF32648151B0006C111 /* FreshFlower.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02842CEF264815000006C111 /* FreshFlower.cpp */; };
 		02897810263D7CED0047C759 /* CVHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 021AC7A326110732007F01B9 /* CVHelper.cpp */; };
 		02897811263D7CED0047C759 /* DynamicCast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02B4C4BF26372F6100FF4EDA /* DynamicCast.cpp */; };
 		02897813263D7CFA0047C759 /* DynamicCast.h in Headers */ = {isa = PBXBuildFile; fileRef = 02B4C4BE26372ED200FF4EDA /* DynamicCast.h */; };
@@ -44,6 +47,8 @@
 		023D8ADB263B154300E42F2D /* libopencv_imgproc.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgproc.4.5.dylib; path = ../../../../../../usr/local/lib/libopencv_imgproc.4.5.dylib; sourceTree = "<group>"; };
 		023D8ADD263B155000E42F2D /* libopencv_imgcodecs.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgcodecs.4.5.dylib; path = ../../../../../../usr/local/lib/libopencv_imgcodecs.4.5.dylib; sourceTree = "<group>"; };
 		0254D0B22610C416001462F2 /* Basedefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Basedefs.h; sourceTree = "<group>"; };
+		02842CEF264815000006C111 /* FreshFlower.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FreshFlower.cpp; sourceTree = "<group>"; };
+		02842CF0264815000006C111 /* FreshFlower.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FreshFlower.hpp; sourceTree = "<group>"; };
 		02897809263D7CDA0047C759 /* test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test; sourceTree = BUILT_PRODUCTS_DIR; };
 		02B4C4B426372D2800FF4EDA /* libDynamicCast.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libDynamicCast.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		02B4C4BE26372ED200FF4EDA /* DynamicCast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DynamicCast.h; sourceTree = "<group>"; };
@@ -77,8 +82,9 @@
 		021AC7982610EE19007F01B9 /* Header File */ = {
 			isa = PBXGroup;
 			children = (
-				02B4C4BE26372ED200FF4EDA /* DynamicCast.h */,
 				021EB79E2601EF4200B0BD76 /* CVHelper.hpp */,
+				02842CF0264815000006C111 /* FreshFlower.hpp */,
+				02B4C4BE26372ED200FF4EDA /* DynamicCast.h */,
 				0254D0B22610C416001462F2 /* Basedefs.h */,
 			);
 			name = "Header File";
@@ -88,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				021AC7A326110732007F01B9 /* CVHelper.cpp */,
+				02842CEF264815000006C111 /* FreshFlower.cpp */,
 				02B4C4BF26372F6100FF4EDA /* DynamicCast.cpp */,
 			);
 			name = Code;
@@ -147,6 +154,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02842CF2264815000006C111 /* FreshFlower.hpp in Headers */,
 				025CF6C62637362300FE0AFF /* DynamicCast.h in Headers */,
 				025CF6C72637362300FE0AFF /* CVHelper.hpp in Headers */,
 				025CF6C82637362300FE0AFF /* Basedefs.h in Headers */,
@@ -249,6 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02842CF32648151B0006C111 /* FreshFlower.cpp in Sources */,
 				02897810263D7CED0047C759 /* CVHelper.cpp in Sources */,
 				02897811263D7CED0047C759 /* DynamicCast.cpp in Sources */,
 			);
@@ -260,6 +269,7 @@
 			files = (
 				02B4C5D32637336A00FF4EDA /* CVHelper.cpp in Sources */,
 				02B4C4C026372F6100FF4EDA /* DynamicCast.cpp in Sources */,
+				02842CF1264815000006C111 /* FreshFlower.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +279,7 @@
 		0289780D263D7CDA0047C759 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = /usr/local/include/opencv4;
 				LIBRARY_SEARCH_PATHS = (
@@ -283,6 +294,7 @@
 		0289780E263D7CDA0047C759 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = /usr/local/include/opencv4;
 				LIBRARY_SEARCH_PATHS = (

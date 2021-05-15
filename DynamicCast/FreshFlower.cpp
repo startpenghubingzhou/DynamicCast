@@ -8,28 +8,28 @@
 
 #include "FreshFlower.hpp"
 
-FreshFlower::FreshFlower(const char* name, int k, int b) : super(name) {
-    haswritten_havg = false;
-    
+FreshFlower::FreshFlower(const char* name, double k, double b) : super(name) {
     data.k = k;
-    
+
     data.b = b;
-    
+
     data.time = super::time;
-    
-    hsvins = super::imgnobg_hsv.clone();
-    
-    thread t(&FreshFlower::prase_h_average, this, ref(data.h_average));
-
-    t.detach();
 }
 
-FreshFlower::~FreshFlower(){
-    
+FreshFlower::~FreshFlower() {
+    super::~super();
 }
 
-void FreshFlower::prase_h_average(double& h_average) {
-    super::prase_h_average(h_average);
-    
-    haswritten_havg = true;
+void FreshFlower::prase_data(basedata& mydata) {
+    super::prase_data(mydata);
+}
+
+fdata FreshFlower::get_data() {
+    basedata tmp;
+
+    prase_data(tmp);
+
+    data.h_average = tmp.h_average;
+
+    return data;
 }

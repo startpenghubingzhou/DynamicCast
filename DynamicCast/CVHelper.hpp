@@ -11,11 +11,10 @@
 
 #include "Basedefs.h"
 
-#include <future>
 #include <opencv2/opencv.hpp>
 
-using namespace std; //NOLINT
-using namespace cv; //NOLINT
+using namespace std;
+using namespace cv;
 
 
 
@@ -48,7 +47,7 @@ class CVHelper{
      * Mat object.
      */
     explicit CVHelper(const char* filename);
-    
+
     /*!
      * @function ~CVHelper
      *
@@ -59,39 +58,36 @@ class CVHelper{
     ~CVHelper();
 
     /*!
-     * @function prase_h_average
+     * @function prase_data
      *
      * @abstract
-     * prase the h average data in an image.
+     * prase the base data in an image.
      *
-     * @param h_average the double data to
-     * contain the average data.
+     * @param mydata the basedata struct to
+     * contain the base data.
      *
      * @discussion
      * This function will automatically prase the HSV data
-     * of image using OpenCV APIs and get the h average of
+     * of image using OpenCV APIs and get the base data of
      * the picture.
      *
      */
-    virtual void prase_h_average(double& h_average);
+    virtual void prase_data(basedata& mydata);
 
-protected:
-    Mat imgnobg_hsv;
-    
+ protected:
     double havg = 0;
-    
-    time_t time;
-    
- private:
-    Mat image;
-    
-    colornum num_flowers;
-    
-    Mutex lock;
-    
-    bool hsvinrange(hsvdata pixel, colorrange range);
 
-    void convert_hsv();
+    time_t time;
+
+    Mat image;
+
+    colornum num_flowers;
+
+    Mutex lock;
+
+    void convert_hsv(Mat& hsvimage);
+
+    bool hsvinrange(hsvdata pixel, colorrange range);
 };
 
 #endif /* CVHelper_hpp */

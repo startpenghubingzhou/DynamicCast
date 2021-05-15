@@ -7,6 +7,7 @@
 //
 
 #include "DynamicCast.h"
+#include <future>
 
 void myfunc() {
     printf("test!\n");
@@ -17,19 +18,26 @@ int main(int argc, char **argv) {
 }
 
 int cast(int argc, char **argv) {
-    basedata.h_average = 1;
-    
+    future<fdata> data1;
+    future<fdata> data2;
+    chrono::milliseconds span(100);
+
     SAFEPOINTER(preins, new FreshFlower("/Users/penghubingzhou/Desktop/based.jpg", -0.3, 0.1), return -1);
 
     SAFEPOINTER(nowins, new FreshFlower("/Users/penghubingzhou/Desktop/test.jpg", -0.3, 0.1), return -1);
 
-    // use this while loop to implement a mechanism like spin-lock.
-    while (!preins->haswritten_havg || !nowins->haswritten_havg) {
+    data1 = async(&FreshFlower::get_data, preins);
+    data2 = async(&FreshFlower::get_data, nowins);
+
+    while (data1.wait_for(span) != future_status::ready || data2.wait_for(span) != future_status::ready) {
         continue;
     }
 
-    printf("%.3f, %.3f\n", preins->data.h_average, nowins->data.h_average);
-    
+    fdata one = data1.get();
+    fdata two = data2.get();
+
+    printf("%.3f, %.3f\n", one.h_average, two.h_average);
+
     return 0;
 }
 

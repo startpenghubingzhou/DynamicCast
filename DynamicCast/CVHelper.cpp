@@ -13,25 +13,25 @@
 
 CVHelper::CVHelper(const char* filename) {
     struct stat mystat;
-    
+
     image = imread(filename);
-    
+
     // judge the image is empty
     if (image.empty()) {
         funcprint("could not convert image!\n");
         delete this;
         return;
     }
-    
+
     stat(filename, &mystat);
-    
+
     time = mystat.st_birthtimespec.tv_sec;
 }
 
 CVHelper::~CVHelper() {
 }
 
-void CVHelper::convert_hsv() {
+void CVHelper::convert_hsv(Mat& hsvimage) {
     Rect rect;
     Mat result;
     Mat bgModel, fgModel;
@@ -42,18 +42,19 @@ void CVHelper::convert_hsv() {
 
     // use grabcut to cut the background
     grabCut(image, result, rect, bgModel, fgModel, 5, GC_INIT_WITH_RECT);
+
     compare(result, GC_PR_FGD, result, CMP_EQ);
 
     SAFEPOINTER(tmp, new Mat(image.size(), CV_8UC3, Scalar(255, 255, 255)), return);
 
     image.copyTo(*tmp, result);
 
-    cvtColor(*tmp, imgnobg_hsv, COLOR_BGR2HSV);
+    cvtColor(*tmp, hsvimage, COLOR_BGR2HSV);
 
     SafeReleaseNULL(tmp);
 }
 
-void CVHelper::prase_h_average(double& h_average) {
+void CVHelper::prase_data(basedata& thedata) {
     string name = "unknown";
     int* numptr = reinterpret_cast<int*>(&num_flowers);
     int loc = loc_pink;
@@ -61,18 +62,17 @@ void CVHelper::prase_h_average(double& h_average) {
     vector<hsvdata> picdata;
     double htmp = 0;
     uint64_t num;
-
     bool isbackground = false;
 
     memset(numptr, 0, sizeof(num_flowers));
-    
-    convert_hsv();
-    
-    for (int i = 0; i < imgnobg_hsv.rows; i++) {
-        for (int j = 0; j < imgnobg_hsv.cols; j++) {
-            data.h = imgnobg_hsv.at<Vec3b>(i, j)[0];
-            data.s = imgnobg_hsv.at<Vec3b>(i, j)[1];
-            data.v = imgnobg_hsv.at<Vec3b>(i, j)[2];
+
+    convert_hsv(thedata.imghsv);
+
+    for (int i = 0; i < thedata.imghsv.rows; i++) {
+        for (int j = 0; j < thedata.imghsv.cols; j++) {
+            data.h = thedata.imghsv.at<Vec3b>(i, j)[0];
+            data.s = thedata.imghsv.at<Vec3b>(i, j)[1];
+            data.v = thedata.imghsv.at<Vec3b>(i, j)[2];
 
             // Now we will determine the pixel color and set color data
             if (hsvinrange(data, hsvrange.pink)) {
@@ -115,7 +115,7 @@ void CVHelper::prase_h_average(double& h_average) {
             if (!isbackground) {
                 picdata.push_back(data);
             }
-            
+
             // reset the isbackground flag state
             isbackground = false;
         }
@@ -174,21 +174,21 @@ void CVHelper::prase_h_average(double& h_average) {
         } else {
             continue;
         }
-        
+
         /* We use recursive average to calculate the average h
            data because the total h data of a color is so large
            that it can happen to overflow.*/
-        
+
         if (num == 0) {
             havg = htmp;
         } else {
             havg = CAL_RECURAVG(havg, htmp, num);
         }
     }
-    
+
     funcprint("the flower's color is: %s, the h average data is : %.3f\n", name.c_str(), havg);
-    
-    h_average = havg;
+
+    thedata.h_average = havg;
 }
 
 bool CVHelper::hsvinrange(hsvdata pixel, colorrange range) {

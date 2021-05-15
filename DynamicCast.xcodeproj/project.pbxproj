@@ -13,6 +13,11 @@
 		025CF6C62637362300FE0AFF /* DynamicCast.h in Headers */ = {isa = PBXBuildFile; fileRef = 02B4C4BE26372ED200FF4EDA /* DynamicCast.h */; };
 		025CF6C72637362300FE0AFF /* CVHelper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 021EB79E2601EF4200B0BD76 /* CVHelper.hpp */; };
 		025CF6C82637362300FE0AFF /* Basedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 0254D0B22610C416001462F2 /* Basedefs.h */; };
+		02637B5A264A4541006F3C9F /* DriedFlower.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02637B58264A4541006F3C9F /* DriedFlower.cpp */; };
+		02637B5B264A4541006F3C9F /* DriedFlower.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 02637B59264A4541006F3C9F /* DriedFlower.hpp */; };
+		02637B5C264A4573006F3C9F /* DriedFlower.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02637B58264A4541006F3C9F /* DriedFlower.cpp */; };
+		02637B5D264A457E006F3C9F /* FreshFlower.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 02842CF0264815000006C111 /* FreshFlower.hpp */; };
+		02637B5E264A457E006F3C9F /* DriedFlower.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 02637B59264A4541006F3C9F /* DriedFlower.hpp */; };
 		02842CF1264815000006C111 /* FreshFlower.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02842CEF264815000006C111 /* FreshFlower.cpp */; };
 		02842CF2264815000006C111 /* FreshFlower.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 02842CF0264815000006C111 /* FreshFlower.hpp */; };
 		02842CF32648151B0006C111 /* FreshFlower.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02842CEF264815000006C111 /* FreshFlower.cpp */; };
@@ -47,6 +52,8 @@
 		023D8ADB263B154300E42F2D /* libopencv_imgproc.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgproc.4.5.dylib; path = ../../../../../../usr/local/lib/libopencv_imgproc.4.5.dylib; sourceTree = "<group>"; };
 		023D8ADD263B155000E42F2D /* libopencv_imgcodecs.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgcodecs.4.5.dylib; path = ../../../../../../usr/local/lib/libopencv_imgcodecs.4.5.dylib; sourceTree = "<group>"; };
 		0254D0B22610C416001462F2 /* Basedefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Basedefs.h; sourceTree = "<group>"; };
+		02637B58264A4541006F3C9F /* DriedFlower.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DriedFlower.cpp; sourceTree = "<group>"; };
+		02637B59264A4541006F3C9F /* DriedFlower.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DriedFlower.hpp; sourceTree = "<group>"; };
 		02842CEF264815000006C111 /* FreshFlower.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FreshFlower.cpp; sourceTree = "<group>"; };
 		02842CF0264815000006C111 /* FreshFlower.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FreshFlower.hpp; sourceTree = "<group>"; };
 		02897809263D7CDA0047C759 /* test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,6 +91,7 @@
 			children = (
 				021EB79E2601EF4200B0BD76 /* CVHelper.hpp */,
 				02842CF0264815000006C111 /* FreshFlower.hpp */,
+				02637B59264A4541006F3C9F /* DriedFlower.hpp */,
 				02B4C4BE26372ED200FF4EDA /* DynamicCast.h */,
 				0254D0B22610C416001462F2 /* Basedefs.h */,
 			);
@@ -95,6 +103,7 @@
 			children = (
 				021AC7A326110732007F01B9 /* CVHelper.cpp */,
 				02842CEF264815000006C111 /* FreshFlower.cpp */,
+				02637B58264A4541006F3C9F /* DriedFlower.cpp */,
 				02B4C4BF26372F6100FF4EDA /* DynamicCast.cpp */,
 			);
 			name = Code;
@@ -144,6 +153,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02637B5D264A457E006F3C9F /* FreshFlower.hpp in Headers */,
+				02637B5E264A457E006F3C9F /* DriedFlower.hpp in Headers */,
 				02897813263D7CFA0047C759 /* DynamicCast.h in Headers */,
 				02897814263D7CFA0047C759 /* CVHelper.hpp in Headers */,
 				02897815263D7CFA0047C759 /* Basedefs.h in Headers */,
@@ -156,6 +167,7 @@
 			files = (
 				02842CF2264815000006C111 /* FreshFlower.hpp in Headers */,
 				025CF6C62637362300FE0AFF /* DynamicCast.h in Headers */,
+				02637B5B264A4541006F3C9F /* DriedFlower.hpp in Headers */,
 				025CF6C72637362300FE0AFF /* CVHelper.hpp in Headers */,
 				025CF6C82637362300FE0AFF /* Basedefs.h in Headers */,
 			);
@@ -172,6 +184,7 @@
 				02897806263D7CDA0047C759 /* Frameworks */,
 				02897807263D7CDA0047C759 /* CopyFiles */,
 				02897812263D7CF20047C759 /* Headers */,
+				02142FD42650382800A987BA /* Linting */,
 			);
 			buildRules = (
 			);
@@ -236,6 +249,20 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		02142FD42650382800A987BA /* Linting */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Linting;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cpplint --recursive --filter=-build/header_guard,-build/c++11,-build/namespaces,-whitespace/line_length,-runtime/int,-runtime/references,-readability/inheritance ./";
+		};
 		02B4C4BD26372D4A00FF4EDA /* Linting */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -248,7 +275,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cpplint --recursive --filter=-build/header_guard,-whitespace/line_length,-runtime/int ./";
+			shellScript = "cpplint --recursive --filter=-build/header_guard,-build/c++11,-build/namespaces,-whitespace/line_length,-runtime/int,-runtime/references,-readability/inheritance ./";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -257,6 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02637B5C264A4573006F3C9F /* DriedFlower.cpp in Sources */,
 				02842CF32648151B0006C111 /* FreshFlower.cpp in Sources */,
 				02897810263D7CED0047C759 /* CVHelper.cpp in Sources */,
 				02897811263D7CED0047C759 /* DynamicCast.cpp in Sources */,
@@ -270,6 +298,7 @@
 				02B4C5D32637336A00FF4EDA /* CVHelper.cpp in Sources */,
 				02B4C4C026372F6100FF4EDA /* DynamicCast.cpp in Sources */,
 				02842CF1264815000006C111 /* FreshFlower.cpp in Sources */,
+				02637B5A264A4541006F3C9F /* DriedFlower.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,15 +9,19 @@
 #ifndef Basedefs_h
 #define Basedefs_h
 
-#include <iostream>
 #include <sys/stat.h>
 #include <math.h>
-#include <atomic>
+#include <iostream>
+#include <opencv2/opencv.hpp>
 
 /* This files included all the definations and structures
    that the project used. */
 #define FUNCNAME "DynamicCast"  // Funcion name
 #define VNAME(a) (#a)  // Variable name
+
+// threshold value defination
+#define THRESHOLD_MIN 0
+#define THRESHOLD_MAX 255
 
 // determine if the number in range
 #define INRANGE(a, b, c) ((b >= a) && (b <= c))
@@ -134,13 +138,22 @@ typedef struct flower_score {
     uint8_t grade;
 }fscore;
 
-typedef struct fresh_flower_data{
-    int k, b;
+typedef struct cvhelper_based_data {
+    cv::Mat imghsv;
+    double h_average;
+}basedata;
+
+/* Fresh_flower_data: a struct containing the neccesary data
+   of a fresh flower. */
+typedef struct fresh_flower_data {
+    double k, b;
     time_t time;
     double h_average;
 }fdata;
 
-typedef struct dried_flower_data{
+/* Dried_flower_data: a struct containing the neccesary data
+ of a dried flower. */
+typedef struct dried_flower_data {
     uint64_t s_flower;
     uint64_t s_browning;
     uint64_t s_fade;

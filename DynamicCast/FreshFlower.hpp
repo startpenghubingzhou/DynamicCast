@@ -9,11 +9,9 @@
 #ifndef FreshFlower_hpp
 #define FreshFlower_hpp
 
-#include <thread>
-#include "CVHelper.hpp"
 #include "Basedefs.h"
-#include <future>
 
+#include "CVHelper.hpp"
 
 #define super CVHelper
 
@@ -41,16 +39,16 @@ class FreshFlower : public CVHelper{
      *
      * @param name a const char that contained the file path.
      *
-     * @param k an integer that contained the k value.
+     * @param k a double that contained the k value.
      *
-     * @param b an integer that contained the b value.
+     * @param b a double that contained the b value.
      *
      * @discussion
      * This function will be executed automatically
      * as this class is instantiated. This function will
      * automatically be constructed with CVHelper constructor.
      */
-    explicit FreshFlower(const char* name, int k, int b);
+    explicit FreshFlower(const char* name, double k, double b);
 
     /*!
      * @function ~FreshFlower
@@ -60,32 +58,26 @@ class FreshFlower : public CVHelper{
      * sources that the class uses
      */
     ~FreshFlower();
-    
+
     /*!
-     * @function prase_h_average
+     * @function prase_data
      *
      * @abstract
      * prase the h average data in the image.
      *
-     * @param h_average the double data to
-     * contain the average data.
+     * @param mydata the basedata struct to
+     * contain the base data.
      *
      * @discussion
-     * see @CVHelper/prase_h_average
+     * see @CVHelper/prase_data
      *
      */
-    virtual void prase_h_average(double& h_average) override;
-    
-    fdata data;
-    
-    bool haswritten_havg;
-    
+    virtual void prase_data(basedata& mydata) override;
+
+    fdata get_data();
+
  private:
-    future<double> future_havg;
-    
-    promise<double> promise_havg;
-    
-    Mutex lock;
+    fdata data;
 
     Mat hsvins;
 };

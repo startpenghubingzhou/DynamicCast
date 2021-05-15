@@ -11,18 +11,17 @@
 
 #include "FreshFlower.hpp"
 
-using namespace std; //NOLINT
+using namespace std;
 
 /* This file declared some global data and main functions.*/
 #if __cplusplus
 extern "C" {
 #endif
 
-static fdata basedata;
+static fdata basic_data;
 FreshFlower* preins;
 FreshFlower* nowins;
-condition_variable cvar;
-    
+
 int cast(int argc, char **argv);
 
 // for command debug

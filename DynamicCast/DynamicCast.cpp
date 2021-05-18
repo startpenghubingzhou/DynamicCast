@@ -22,11 +22,11 @@ int cast(int argc, char **argv) {
     future<fscore> score2;
     chrono::milliseconds span(100);
 
-    SAFEPOINTER(preins, new FreshFlower("/Users/penghubingzhou/Desktop/based.jpg", -0.3, 0.1, 20), return -1);
+    SAFEPOINTER(preins, new FreshFlower("/Users/penghubingzhou/Desktop/based.jpg", -0.46, 13.67, 18), return -1);
 
     basic_data = preins->get_data();
 
-    SAFEPOINTER(nowins1, new DriedFlower("/Users/penghubingzhou/Desktop/test1.jpg", basic_data), return -1);
+    SAFEPOINTER(nowins1, new DriedFlower("/Users/penghubingzhou/Desktop/test.jpg", basic_data), return -1);
 
     SAFEPOINTER(nowins2, new DriedFlower("/Users/penghubingzhou/Desktop/test2.jpg", basic_data), return -1);
 
@@ -40,9 +40,9 @@ int cast(int argc, char **argv) {
     fscore one = score1.get();
     fscore two = score2.get();
 
-    printf("%.3f, %.3f, %.3f, %.3f, %.3f, %d\n", one.browningscore, one.drytimescore, one.fadescore, one.transferredscore, one.finalscore, one.grade);
+    printf("browning: %.3f, drytime: %.3f, fade: %.3f, transferred: %.3f, final: %.3f, grade: %d\n", one.browningscore, one.drytimescore, one.fadescore, one.transferredscore, one.finalscore, one.grade);
 
-    printf("%.3f, %.3f, %.3f, %.3f, %.3f, %d\n", two.browningscore, two.drytimescore, two.fadescore, two.transferredscore, two.finalscore, two.grade);
+    printf("browning: %.3f, drytime: %.3f, fade: %.3f, transferred: %.3f, final: %.3f, grade: %d\n", two.browningscore, two.drytimescore, two.fadescore, two.transferredscore, two.finalscore, two.grade);
 
     return 0;
 }

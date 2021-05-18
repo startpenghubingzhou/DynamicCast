@@ -39,13 +39,12 @@
 #define INRANGE_SCORE(a, b, c) ((b >= a) && (b < c))
 
 // Score calculation
-#define CAL_PERCENT(percent) 100 * (1 - percent)
-#define CAL_FINAL(brown, dry, trans, fade) brown * 0.4 + dry * 0.3 + trans * 0.2 + fade * 0.1
-#define CAL_TRANSRATIO(x, y) abs(x - y) / 180
-#define CAL_DRYSCORE(dryratio) dryratio <= 1 ? (70 - 30 * dryratio) : 0
-#define CAL_DRYRATIO(daysavg, days) ((days - daysavg) / daysavg)
+#define CAL_PERCENT(percent) 100.000 * (1.000 - static_cast<double>(percent))
+#define CAL_TRANSRATIO(x, y) static_cast<double>(abs(x - y) / 180.000)
+#define CAL_DRYSCORE(dryratio) dryratio <= 1.000 ? (70 - 30 * static_cast<double>(dryratio)) : 0
+#define CAL_DRYRATIO(daysavg, days) ((static_cast<double>(days) - static_cast<double>(daysavg)) / static_cast<double>(daysavg))
 #define CAL_DAYAVG(k, b, t) ceil(k * t + b)
-#define CAL_DAYS(time_pre, time_now) ceil(difftime(time_pre, time_now) / (60 * 60 * 24))
+#define CAL_DAYS(time_pre, time_now) ceil(difftime(time_now, time_pre) / (60 * 60 * 24))
 
 #define CAL_RECURAVG(preavg, add, num) ((num - 1) * preavg + add) / num
 

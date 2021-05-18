@@ -11,6 +11,8 @@
 
 DriedFlower::DriedFlower(const char* name, fdata& flower_data) : super(name) {
     unique_data.time = super::time;
+
+    origin_data = flower_data;
 }
 
 DriedFlower::~DriedFlower() {
@@ -121,9 +123,10 @@ uint32_t DriedFlower::calculate_area_flower(Mat& image) {
 fscore DriedFlower::get_score() {
     fscore score;
     basedata tmp;
-    int days,  daysavg;
+    int days, daysavg;
+    double daysratio;
 
-    // fill the unique data area and calculate days and daysavg
+    // fill the unique data area and calculate data
     prase_data(tmp);
 
     unique_data.h_average = tmp.h_average;
@@ -138,14 +141,16 @@ fscore DriedFlower::get_score() {
 
     daysavg = CAL_DAYAVG(origin_data.k, origin_data.b, origin_data.t);
 
-    // calculate the score data
-    score.browningscore = CAL_PERCENT(unique_data.s_browning / unique_data.s_flower);
+    daysratio = CAL_DRYRATIO(daysavg, days);
 
-    score.fadescore = CAL_PERCENT(unique_data.s_fade / unique_data.s_flower);
+    // calculate the score data
+    score.browningscore = CAL_PERCENT(static_cast<double>(unique_data.s_browning) / static_cast<double>(unique_data.s_flower));
+
+    score.fadescore = CAL_PERCENT(static_cast<double>(unique_data.s_fade / unique_data.s_flower));
 
     score.transferredscore = CAL_PERCENT(CAL_TRANSRATIO(unique_data.h_average, origin_data.h_average));
 
-    score.drytimescore = CAL_DRYSCORE(CAL_DRYRATIO(daysavg, days));
+    score.drytimescore = CAL_DRYSCORE(daysratio);
 
     score.finalscore = CAL_FINAL(score.browningscore, score.drytimescore, score.transferredscore, score.fadescore);
 

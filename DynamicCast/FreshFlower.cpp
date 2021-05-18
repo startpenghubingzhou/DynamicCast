@@ -8,10 +8,12 @@
 
 #include "FreshFlower.hpp"
 
-FreshFlower::FreshFlower(const char* name, double k, double b) : super(name) {
+FreshFlower::FreshFlower(const char* name, double k, double b, double t) : super(name) {
     data.k = k;
 
     data.b = b;
+
+    data.t = t;
 
     data.time = super::time;
 }

@@ -85,6 +85,8 @@ class CVHelper{
 
     Mutex lock;
 
+    int loc = loc_pink;
+
     void convert_hsv(Mat& hsvimage);
 
     bool hsvinrange(hsvdata pixel, colorrange range);

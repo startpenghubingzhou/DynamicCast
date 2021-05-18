@@ -19,19 +19,32 @@
 #define FUNCNAME "DynamicCast"  // Funcion name
 #define VNAME(a) (#a)  // Variable name
 
+// small region defination
+#define AERA_SMALL 200
+
 // threshold value defination
 #define THRESHOLD_MIN 0
 #define THRESHOLD_MAX 255
 
+// grade define
+#define GRADE_UNKNOWN 0
+#define GRADE_ONE 1
+#define GRADE_TWO 2
+#define GRADE_THREE 3
+#define GRADE_FOUR 4
+#define GRADE_FIVE 5
+
 // determine if the number in range
 #define INRANGE(a, b, c) ((b >= a) && (b <= c))
+#define INRANGE_SCORE(a, b, c) ((b >= a) && (b < c))
 
 // Score calculation
 #define CAL_PERCENT(percent) 100 * (1 - percent)
 #define CAL_FINAL(brown, dry, trans, fade) brown * 0.4 + dry * 0.3 + trans * 0.2 + fade * 0.1
 #define CAL_TRANSRATIO(x, y) abs(x - y) / 180
-#define CAL_DRY(dryratio) dryratio <= 1 ? (70 - 30 * dryratio) : 0
-#define CAL_DRYRATIO(k, b, t) ceil(k * t + b)
+#define CAL_DRYSCORE(dryratio) dryratio <= 1 ? (70 - 30 * dryratio) : 0
+#define CAL_DRYRATIO(daysavg, days) ((days - daysavg) / daysavg)
+#define CAL_DAYAVG(k, b, t) ceil(k * t + b)
 #define CAL_DAYS(time_pre, time_now) ceil(difftime(time_pre, time_now) / (60 * 60 * 24))
 
 #define CAL_RECURAVG(preavg, add, num) ((num - 1) * preavg + add) / num
@@ -130,11 +143,11 @@ typedef struct score_calulate_data {
 /* flower_score: a struct containing the data of the flower
    that will be written to the database. */
 typedef struct flower_score {
-    uint8_t browningscore;
-    uint8_t drytimescore;
-    uint8_t transferredscore;
-    uint8_t fadescore;
-    uint8_t finalscore;
+    double browningscore;
+    double drytimescore;
+    double transferredscore;
+    double fadescore;
+    double finalscore;
     uint8_t grade;
 }fscore;
 
@@ -146,7 +159,7 @@ typedef struct cvhelper_based_data {
 /* Fresh_flower_data: a struct containing the neccesary data
    of a fresh flower. */
 typedef struct fresh_flower_data {
-    double k, b;
+    double k, b, t;
     time_t time;
     double h_average;
 }fdata;
@@ -154,9 +167,9 @@ typedef struct fresh_flower_data {
 /* Dried_flower_data: a struct containing the neccesary data
  of a dried flower. */
 typedef struct dried_flower_data {
-    uint64_t s_flower;
-    uint64_t s_browning;
-    uint64_t s_fade;
+    uint32_t s_flower;
+    uint32_t s_browning;
+    uint32_t s_fade;
     double h_average;
     time_t time;
 }ddata;

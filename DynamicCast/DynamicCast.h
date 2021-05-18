@@ -10,6 +10,7 @@
 #define DynamicCast_h
 
 #include "FreshFlower.hpp"
+#include "DriedFlower.hpp"
 
 using namespace std;
 
@@ -19,8 +20,10 @@ extern "C" {
 #endif
 
 static fdata basic_data;
+
 FreshFlower* preins;
-FreshFlower* nowins;
+DriedFlower* nowins1;
+DriedFlower* nowins2;
 
 int cast(int argc, char **argv);
 

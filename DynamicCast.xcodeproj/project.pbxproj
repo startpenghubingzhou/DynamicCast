@@ -94,6 +94,7 @@
 				02637B59264A4541006F3C9F /* DriedFlower.hpp */,
 				02B4C4BE26372ED200FF4EDA /* DynamicCast.h */,
 				0254D0B22610C416001462F2 /* Basedefs.h */,
+				02FC5D9725D817DE005F77F5 /* Products */,
 			);
 			name = "Header File";
 			sourceTree = "<group>";
@@ -123,7 +124,6 @@
 			isa = PBXGroup;
 			children = (
 				02FC5D9825D817DE005F77F5 /* DynamicCast */,
-				02FC5D9725D817DE005F77F5 /* Products */,
 				02F59FB7263AF09F0010C1A1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -135,6 +135,7 @@
 				02897809263D7CDA0047C759 /* test */,
 			);
 			name = Products;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		02FC5D9825D817DE005F77F5 /* DynamicCast */ = {

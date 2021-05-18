@@ -57,7 +57,6 @@ void CVHelper::convert_hsv(Mat& hsvimage) {
 void CVHelper::prase_data(basedata& thedata) {
     string name = "unknown";
     int* numptr = reinterpret_cast<int*>(&num_flowers);
-    int loc = loc_pink;
     hsvdata data;
     vector<hsvdata> picdata;
     double htmp = 0;

@@ -44,24 +44,20 @@ class DriedFlower : public super {
      */
     ~DriedFlower();
 
-    /*!
-     * @function prase_data
-     *
-     * @abstract
-     * prase the h average data in the image.
-     *
-     * @param mydata the basedata struct to
-     * contain the base data.
-     *
-     * @discussion
-     * see @CVHelper/prase_data
-     *
-     */
+    fscore get_score();
+
+ private:
     void prase_data(basedata& mydata) override;
 
-    int calculate_area_flower(Mat& image);
+    uint32_t calculate_faded(Mat& image);
 
-    ddata data;
+    uint32_t calculate_area_flower(Mat& image);
+
+    uint32_t calculate_browning(Mat& image);
+
+    ddata unique_data;
+
+    fdata origin_data;
 
     Mat hsvins;
 };

@@ -18,32 +18,39 @@ int main(int argc, char **argv) {
 }
 
 int cast(int argc, char **argv) {
-    future<fdata> data1;
-    future<fdata> data2;
+    future<fscore> score1;
+    future<fscore> score2;
     chrono::milliseconds span(100);
 
-    SAFEPOINTER(preins, new FreshFlower("/Users/penghubingzhou/Desktop/based.jpg", -0.3, 0.1), return -1);
+    SAFEPOINTER(preins, new FreshFlower("/Users/penghubingzhou/Desktop/based.jpg", -0.3, 0.1, 20), return -1);
 
-    SAFEPOINTER(nowins, new FreshFlower("/Users/penghubingzhou/Desktop/test.jpg", -0.3, 0.1), return -1);
+    basic_data = preins->get_data();
 
-    data1 = async(&FreshFlower::get_data, preins);
-    data2 = async(&FreshFlower::get_data, nowins);
+    SAFEPOINTER(nowins1, new DriedFlower("/Users/penghubingzhou/Desktop/test1.jpg", basic_data), return -1);
 
-    while (data1.wait_for(span) != future_status::ready || data2.wait_for(span) != future_status::ready) {
+    SAFEPOINTER(nowins2, new DriedFlower("/Users/penghubingzhou/Desktop/test2.jpg", basic_data), return -1);
+
+    score1 = async(&DriedFlower::get_score, nowins1);
+    score2 = async(&DriedFlower::get_score, nowins2);
+
+    while (score1.wait_for(span) != future_status::ready || score2.wait_for(span) != future_status::ready) {
         continue;
     }
 
-    fdata one = data1.get();
-    fdata two = data2.get();
+    fscore one = score1.get();
+    fscore two = score2.get();
 
-    printf("%.3f, %.3f\n", one.h_average, two.h_average);
+    printf("%.3f, %.3f, %.3f, %.3f, %.3f, %d\n", one.browningscore, one.drytimescore, one.fadescore, one.transferredscore, one.finalscore, one.grade);
+
+    printf("%.3f, %.3f, %.3f, %.3f, %.3f, %d\n", two.browningscore, two.drytimescore, two.fadescore, two.transferredscore, two.finalscore, two.grade);
 
     return 0;
 }
 
 void releasesource() {
     SafeReleaseNULL(preins);
-    SafeReleaseNULL(nowins);
+    SafeReleaseNULL(nowins1);
+    SafeReleaseNULL(nowins2);
 }
 
 void detectargs(int argc, char **argv) {

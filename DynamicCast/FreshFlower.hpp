@@ -43,12 +43,15 @@ class FreshFlower : public CVHelper{
      *
      * @param b a double that contained the b value.
      *
+     * @param t a double that contained the average
+     * temperature value.
+     *
      * @discussion
      * This function will be executed automatically
      * as this class is instantiated. This function will
      * automatically be constructed with CVHelper constructor.
      */
-    explicit FreshFlower(const char* name, double k, double b);
+    explicit FreshFlower(const char* name, double k, double b, double t);
 
     /*!
      * @function ~FreshFlower
@@ -60,26 +63,27 @@ class FreshFlower : public CVHelper{
     ~FreshFlower();
 
     /*!
-     * @function prase_data
+     * @function get_data
      *
      * @abstract
-     * prase the h average data in the image.
-     *
-     * @param mydata the basedata struct to
-     * contain the base data.
+     * get the h average data in the image.
      *
      * @discussion
-     * see @CVHelper/prase_data
+     * this func can get the base data of a
+     * fresh flower instance for the future
+     * calculation. Once you have initialized
+     * an instance,  you could use this func
+     * to get it.
      *
+     * @return a fdata struct containing the
+     * initialized fresh flower data.
      */
-    virtual void prase_data(basedata& mydata) override;
-
     fdata get_data();
 
  private:
-    fdata data;
+    virtual void prase_data(basedata& mydata) override;
 
-    Mat hsvins;
+    fdata data;
 };
 
 #endif /* FreshFlower_hpp */

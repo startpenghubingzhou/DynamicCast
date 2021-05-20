@@ -26,6 +26,9 @@
 #define THRESHOLD_MIN 0
 #define THRESHOLD_MAX 255
 
+// max date len for sql
+#define DATELEN 3 * sizeof(int) + 3
+
 // grade define
 #define GRADE_UNKNOWN 0
 #define GRADE_ONE 1
@@ -33,6 +36,10 @@
 #define GRADE_THREE 3
 #define GRADE_FOUR 4
 #define GRADE_FIVE 5
+
+// SQLFriend Flags
+#define SQLF_OK 0
+#define SQLF_FAILED -1
 
 // determine if the number in range
 #define INRANGE(a, b, c) ((b >= a) && (b <= c))
@@ -173,4 +180,13 @@ typedef struct dried_flower_data {
     double h_average;
     time_t time;
 }ddata;
+
+/* flower_data: a struct containing the data of the flower
+ that will be written to the database. */
+typedef struct flower_data_sql {
+    fscore score;
+    const char* time;
+    const char* name;
+    int num;
+}sqlfscore;
 #endif /* Basedefs_h */

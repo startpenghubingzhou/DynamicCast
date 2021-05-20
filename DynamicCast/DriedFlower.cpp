@@ -12,6 +12,8 @@
 DriedFlower::DriedFlower(const char* name, fdata& flower_data) : super(name) {
     unique_data.time = super::time;
 
+    sqlpath = name;
+
     origin_data = flower_data;
 }
 
@@ -120,7 +122,7 @@ uint32_t DriedFlower::calculate_area_flower(Mat& image) {
     return area;
 }
 
-fscore DriedFlower::get_score() {
+fscore DriedFlower::__get_score() {
     fscore score;
     basedata tmp;
     int days, daysavg;
@@ -169,4 +171,23 @@ fscore DriedFlower::get_score() {
         score.grade = GRADE_UNKNOWN;
 
     return score;
+}
+
+sqlfscore DriedFlower::get_score(int sqlnum) {
+    sqlfscore sqldata;
+    struct tm* timeptr;
+    struct tm timestruct;
+    char timestr[DATELEN];
+
+    timeptr = gmtime_r(&unique_data.time, &timestruct);
+
+    snprintf(timestr, DATELEN, "%d.%d.%d", (timeptr->tm_year) + 1900, (timeptr->tm_mon) + 1, timeptr->tm_mday);
+
+    sqldata.num = sqlnum;
+    sqldata.name = sqlpath;
+    sqldata.time = reinterpret_cast<const char*>(new char[DATELEN]);
+    strncpy(const_cast<char*>(sqldata.time), &timestr[0], DATELEN);
+    sqldata.score = __get_score();
+
+    return sqldata;
 }

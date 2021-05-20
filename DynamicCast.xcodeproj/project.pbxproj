@@ -10,6 +10,10 @@
 		023D8ADA263B153100E42F2D /* libopencv_core.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 023D8AD9263B153100E42F2D /* libopencv_core.4.5.dylib */; };
 		023D8ADC263B154300E42F2D /* libopencv_imgproc.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 023D8ADB263B154300E42F2D /* libopencv_imgproc.4.5.dylib */; };
 		023D8ADE263B155000E42F2D /* libopencv_imgcodecs.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 023D8ADD263B155000E42F2D /* libopencv_imgcodecs.4.5.dylib */; };
+		024C93272653EE84004FC812 /* libsqlite3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 024C93262653EE84004FC812 /* libsqlite3.a */; };
+		024C932A2653EEC1004FC812 /* SQLFriend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 024C93282653EEC1004FC812 /* SQLFriend.cpp */; };
+		024C932B2653EEC1004FC812 /* SQLFriend.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 024C93292653EEC1004FC812 /* SQLFriend.hpp */; };
+		024C932C2653EEC5004FC812 /* SQLFriend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 024C93282653EEC1004FC812 /* SQLFriend.cpp */; };
 		025CF6C62637362300FE0AFF /* DynamicCast.h in Headers */ = {isa = PBXBuildFile; fileRef = 02B4C4BE26372ED200FF4EDA /* DynamicCast.h */; };
 		025CF6C72637362300FE0AFF /* CVHelper.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 021EB79E2601EF4200B0BD76 /* CVHelper.hpp */; };
 		025CF6C82637362300FE0AFF /* Basedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 0254D0B22610C416001462F2 /* Basedefs.h */; };
@@ -31,6 +35,7 @@
 		02897818263D7D130047C759 /* libopencv_core.4.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 023D8AD9263B153100E42F2D /* libopencv_core.4.5.dylib */; };
 		02B4C4C026372F6100FF4EDA /* DynamicCast.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 02B4C4BF26372F6100FF4EDA /* DynamicCast.cpp */; };
 		02B4C5D32637336A00FF4EDA /* CVHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 021AC7A326110732007F01B9 /* CVHelper.cpp */; };
+		02F9F0522655704C00CFE87E /* libsqlite3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 024C93262653EE84004FC812 /* libsqlite3.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,6 +56,9 @@
 		023D8AD9263B153100E42F2D /* libopencv_core.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.4.5.dylib; path = ../../../../../../usr/local/lib/libopencv_core.4.5.dylib; sourceTree = "<group>"; };
 		023D8ADB263B154300E42F2D /* libopencv_imgproc.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgproc.4.5.dylib; path = ../../../../../../usr/local/lib/libopencv_imgproc.4.5.dylib; sourceTree = "<group>"; };
 		023D8ADD263B155000E42F2D /* libopencv_imgcodecs.4.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgcodecs.4.5.dylib; path = ../../../../../../usr/local/lib/libopencv_imgcodecs.4.5.dylib; sourceTree = "<group>"; };
+		024C93262653EE84004FC812 /* libsqlite3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsqlite3.a; path = ../../../../usr/local/lib/libsqlite3.a; sourceTree = "<group>"; };
+		024C93282653EEC1004FC812 /* SQLFriend.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SQLFriend.cpp; sourceTree = "<group>"; };
+		024C93292653EEC1004FC812 /* SQLFriend.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SQLFriend.hpp; sourceTree = "<group>"; };
 		0254D0B22610C416001462F2 /* Basedefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Basedefs.h; sourceTree = "<group>"; };
 		02637B58264A4541006F3C9F /* DriedFlower.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DriedFlower.cpp; sourceTree = "<group>"; };
 		02637B59264A4541006F3C9F /* DriedFlower.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DriedFlower.hpp; sourceTree = "<group>"; };
@@ -67,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				024C93272653EE84004FC812 /* libsqlite3.a in Frameworks */,
 				02897816263D7D100047C759 /* libopencv_imgcodecs.4.5.dylib in Frameworks */,
 				02897817263D7D110047C759 /* libopencv_imgproc.4.5.dylib in Frameworks */,
 				02897818263D7D130047C759 /* libopencv_core.4.5.dylib in Frameworks */,
@@ -77,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02F9F0522655704C00CFE87E /* libsqlite3.a in Frameworks */,
 				023D8ADA263B153100E42F2D /* libopencv_core.4.5.dylib in Frameworks */,
 				023D8ADC263B154300E42F2D /* libopencv_imgproc.4.5.dylib in Frameworks */,
 				023D8ADE263B155000E42F2D /* libopencv_imgcodecs.4.5.dylib in Frameworks */,
@@ -89,6 +99,7 @@
 		021AC7982610EE19007F01B9 /* Header File */ = {
 			isa = PBXGroup;
 			children = (
+				024C93292653EEC1004FC812 /* SQLFriend.hpp */,
 				021EB79E2601EF4200B0BD76 /* CVHelper.hpp */,
 				02842CF0264815000006C111 /* FreshFlower.hpp */,
 				02637B59264A4541006F3C9F /* DriedFlower.hpp */,
@@ -102,6 +113,7 @@
 		025CF6C926373A3700FE0AFF /* Code */ = {
 			isa = PBXGroup;
 			children = (
+				024C93282653EEC1004FC812 /* SQLFriend.cpp */,
 				021AC7A326110732007F01B9 /* CVHelper.cpp */,
 				02842CEF264815000006C111 /* FreshFlower.cpp */,
 				02637B58264A4541006F3C9F /* DriedFlower.cpp */,
@@ -113,6 +125,7 @@
 		02F59FB7263AF09F0010C1A1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				024C93262653EE84004FC812 /* libsqlite3.a */,
 				023D8AD9263B153100E42F2D /* libopencv_core.4.5.dylib */,
 				023D8ADB263B154300E42F2D /* libopencv_imgproc.4.5.dylib */,
 				023D8ADD263B155000E42F2D /* libopencv_imgcodecs.4.5.dylib */,
@@ -167,6 +180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02842CF2264815000006C111 /* FreshFlower.hpp in Headers */,
+				024C932B2653EEC1004FC812 /* SQLFriend.hpp in Headers */,
 				025CF6C62637362300FE0AFF /* DynamicCast.h in Headers */,
 				02637B5B264A4541006F3C9F /* DriedFlower.hpp in Headers */,
 				025CF6C72637362300FE0AFF /* CVHelper.hpp in Headers */,
@@ -287,6 +301,7 @@
 			files = (
 				02637B5C264A4573006F3C9F /* DriedFlower.cpp in Sources */,
 				02842CF32648151B0006C111 /* FreshFlower.cpp in Sources */,
+				024C932C2653EEC5004FC812 /* SQLFriend.cpp in Sources */,
 				02897810263D7CED0047C759 /* CVHelper.cpp in Sources */,
 				02897811263D7CED0047C759 /* DynamicCast.cpp in Sources */,
 			);
@@ -298,6 +313,7 @@
 			files = (
 				02B4C5D32637336A00FF4EDA /* CVHelper.cpp in Sources */,
 				02B4C4C026372F6100FF4EDA /* DynamicCast.cpp in Sources */,
+				024C932A2653EEC1004FC812 /* SQLFriend.cpp in Sources */,
 				02842CF1264815000006C111 /* FreshFlower.cpp in Sources */,
 				02637B5A264A4541006F3C9F /* DriedFlower.cpp in Sources */,
 			);
@@ -311,7 +327,10 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CODE_SIGN_STYLE = Automatic;
-				HEADER_SEARCH_PATHS = /usr/local/include/opencv4;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/opencv4,
+					/usr/local/include,
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/lib,
@@ -326,7 +345,10 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				CODE_SIGN_STYLE = Automatic;
-				HEADER_SEARCH_PATHS = /usr/local/include/opencv4;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/opencv4,
+					/usr/local/include,
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/usr/local/lib,
@@ -344,7 +366,10 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath/";
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = /usr/local/include/opencv4;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/opencv4,
+					/usr/local/include,
+				);
 				LD_DYLIB_INSTALL_NAME = "@rpath/$(EXECUTABLE_PATH)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -368,7 +393,10 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath/";
 				EXECUTABLE_PREFIX = lib;
-				HEADER_SEARCH_PATHS = /usr/local/include/opencv4;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/opencv4,
+					/usr/local/include,
+				);
 				LD_DYLIB_INSTALL_NAME = "@rpath/$(EXECUTABLE_PATH)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

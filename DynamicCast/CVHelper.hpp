@@ -83,8 +83,6 @@ class CVHelper{
 
     colornum num_flowers;
 
-    Mutex lock;
-
     int loc = loc_pink;
 
     void convert_hsv(Mat& hsvimage);

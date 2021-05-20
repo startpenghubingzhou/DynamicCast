@@ -44,7 +44,7 @@ class DriedFlower : public super {
      */
     ~DriedFlower();
 
-    fscore get_score();
+    sqlfscore get_score(int sqlnum);
 
  private:
     void prase_data(basedata& mydata) override;
@@ -55,9 +55,13 @@ class DriedFlower : public super {
 
     uint32_t calculate_browning(Mat& image);
 
+    fscore __get_score();
+
     ddata unique_data;
 
     fdata origin_data;
+
+    const char* sqlpath;
 
     Mat hsvins;
 };

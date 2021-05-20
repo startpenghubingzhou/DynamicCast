@@ -18,39 +18,89 @@ int main(int argc, char **argv) {
 }
 
 int cast(int argc, char **argv) {
-    future<fscore> score1;
-    future<fscore> score2;
+    future<sqlfscore*> score1;
+    future<sqlfscore*> score2;
     chrono::milliseconds span(100);
+    fdata* dataptr;
 
-    SAFEPOINTER(preins, new FreshFlower("/Users/penghubingzhou/Desktop/based.jpg", -0.46, 13.67, 18), return -1);
+    if (DynamicCast_init("/Users/penghubingzhou/Desktop/Database.db")) {
+        return -1;
+    }
 
-    basic_data = preins->get_data();
+    dataptr = getbasedata("/Users/penghubingzhou/Desktop/based.jpg", -0.46, 13.67, 18);
 
-    SAFEPOINTER(nowins1, new DriedFlower("/Users/penghubingzhou/Desktop/test.jpg", basic_data), return -1);
+    basic_data = *dataptr;
 
-    SAFEPOINTER(nowins2, new DriedFlower("/Users/penghubingzhou/Desktop/test2.jpg", basic_data), return -1);
-
-    score1 = async(&DriedFlower::get_score, nowins1);
-    score2 = async(&DriedFlower::get_score, nowins2);
+    score1 = async(getscoredata, "/Users/penghubingzhou/Desktop/test.jpg", &basic_data, 6);
+    score2 = async(getscoredata, "/Users/penghubingzhou/Desktop/test2.jpg", &basic_data, 7);
 
     while (score1.wait_for(span) != future_status::ready || score2.wait_for(span) != future_status::ready) {
         continue;
     }
 
-    fscore one = score1.get();
-    fscore two = score2.get();
+    sqlfscore* one = score1.get();
+    sqlfscore* two = score2.get();
 
-    printf("browning: %.3f, drytime: %.3f, fade: %.3f, transferred: %.3f, final: %.3f, grade: %d\n", one.browningscore, one.drytimescore, one.fadescore, one.transferredscore, one.finalscore, one.grade);
+    printf("browning: %.3f, drytime: %.3f, fade: %.3f, transferred: %.3f, final: %.3f, grade: %d\n", one->score.browningscore, one->score.drytimescore, one->score.fadescore, one->score.transferredscore, one->score.finalscore, one->score.grade);
 
-    printf("browning: %.3f, drytime: %.3f, fade: %.3f, transferred: %.3f, final: %.3f, grade: %d\n", two.browningscore, two.drytimescore, two.fadescore, two.transferredscore, two.finalscore, two.grade);
+    printf("browning: %.3f, drytime: %.3f, fade: %.3f, transferred: %.3f, final: %.3f, grade: %d\n", two->score.browningscore, two->score.drytimescore, two->score.fadescore, two->score.transferredscore, two->score.finalscore, two->score.grade);
+
+    writedata(one);
+    writedata(two);
+
+    release_score_data(one);
+    release_score_data(two);
+
+    SafeReleaseNULL(sqlins);
 
     return 0;
 }
 
-void releasesource() {
-    SafeReleaseNULL(preins);
-    SafeReleaseNULL(nowins1);
-    SafeReleaseNULL(nowins2);
+int DynamicCast_init(const char* dbpath) {
+    SAFEPOINTER(sqlins, new SQLFriend(dbpath), return -1);
+    return 0;
+}
+
+fdata* getbasedata(const char* name, double k, double b, double t) {
+    fdata* data;
+    FreshFlower* instance;
+
+    if (!name) {
+        return nullptr;
+    }
+
+    SAFEPOINTER(instance, new FreshFlower(name, k, b, t), return nullptr);
+
+    SAFEPOINTER(data, new fdata, return nullptr);
+
+    *data = instance->get_data();
+
+    SafeReleaseNULL(instance);
+
+    return data;
+}
+
+sqlfscore* getscoredata(const char* name, fdata* flower_data, int sqlnum) {
+    sqlfscore* data;
+    DriedFlower* instance;
+
+    if (!flower_data || !name) {
+        return nullptr;
+    }
+
+    SAFEPOINTER(instance, new DriedFlower(name, *flower_data), return nullptr);
+
+    SAFEPOINTER(data, new sqlfscore, return nullptr);
+
+    *data = instance->get_score(sqlnum);
+
+    SafeReleaseNULL(instance);
+
+    return data;
+}
+
+void release_score_data(sqlfscore* data) {
+    SafeReleaseNULL(data);
 }
 
 void detectargs(int argc, char **argv) {
@@ -65,4 +115,20 @@ void detectargs(int argc, char **argv) {
         funcprint("wrong args! Type \"DynamicCast -h\" for help!\n");
         exit(0);
     }
+}
+
+int readdata(int num, sqlfscore* data) {
+    return sqlins->readdata(num, data);
+}
+
+int writedata(sqlfscore* data) {
+    return sqlins->writedata(data);
+}
+
+int deletedata(int num) {
+    return sqlins->deletedata(num);
+}
+
+int getsize() {
+    return sqlins->getsize();
 }

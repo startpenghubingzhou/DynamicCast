@@ -16,9 +16,6 @@
 using namespace std;
 
 /* This file declared some global data and main functions.*/
-#if __cplusplus
-extern "C" {
-#endif
 
 static fdata basic_data;
 static SQLFriend* sqlins;
@@ -29,6 +26,7 @@ int main(int argc, char **argv);
 // real main func
 int cast(int argc, char **argv);
 int DynamicCast_init(const char* dbpath);
+void DynamicCast_deinit();
 
 // DriedFlower func export for Objective-C bridge
 sqlfscore* getscoredata(const char* name, fdata* flower_data, int sqlnum);
@@ -43,12 +41,6 @@ int writedata(sqlfscore* data);
 int deletedata(int num);
 int getsize();
 
-void myfunc(void);
-void releasesource();
-void detectargs(int argc, char **argv);
-
-#ifdef __cplusplus
-}
-#endif
+const char* testchar();
 
 #endif /* DynamicCast_h */

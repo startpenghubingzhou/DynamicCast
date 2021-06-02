@@ -16,7 +16,11 @@
 using namespace std;
 using namespace cv;
 
-
+typedef struct cvhelper_based_data {
+    Mat imghsv;
+    double h_average;
+    double color;
+}basedata;
 
 /*!
  * @class CVHelper

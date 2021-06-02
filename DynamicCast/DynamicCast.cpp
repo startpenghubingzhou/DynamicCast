@@ -9,47 +9,53 @@
 #include "DynamicCast.h"
 #include <future>
 
-void myfunc() {
-    printf("test!\n");
-}
+#define LEN 6
 
 int main(int argc, char **argv) {
     return cast(argc, argv);
 }
 
 int cast(int argc, char **argv) {
-    future<sqlfscore*> score1;
-    future<sqlfscore*> score2;
-    chrono::milliseconds span(100);
     fdata* dataptr;
+    future<sqlfscore*> score[LEN];
+    chrono::milliseconds span(100);
+    sqlfscore* ptr[LEN];
+    const char* runpath = "/Users/penghubingzhou/Desktop/整理/20210513/%d.jpg";
+    const char* basepath = "/Users/penghubingzhou/Desktop/整理/20210513/based.jpg";
 
     if (DynamicCast_init("/Users/penghubingzhou/Desktop/Database.db")) {
         return -1;
     }
 
-    dataptr = getbasedata("/Users/penghubingzhou/Desktop/based.jpg", -0.46, 13.67, 18);
+    dataptr = getbasedata(basepath, -0.46, 13.67, 21);
+
+    if (!dataptr) {
+        return -1;
+    }
 
     basic_data = *dataptr;
 
-    score1 = async(getscoredata, "/Users/penghubingzhou/Desktop/test.jpg", &basic_data, 6);
-    score2 = async(getscoredata, "/Users/penghubingzhou/Desktop/test2.jpg", &basic_data, 7);
+    for (int i = 0; i < LEN; i++) {
+        const char* path;
 
-    while (score1.wait_for(span) != future_status::ready || score2.wait_for(span) != future_status::ready) {
-        continue;
+        path = sqlite3_mprintf(runpath, i + 1);
+
+        score[i] = async(getscoredata, path, &basic_data, 4 + i);
     }
 
-    sqlfscore* one = score1.get();
-    sqlfscore* two = score2.get();
+    for (int i = 0; i < LEN; i++) {
+        while (score[i].wait_for(span) != future_status::ready) {
+            continue;
+        }
+    }
 
-    printf("browning: %.3f, drytime: %.3f, fade: %.3f, transferred: %.3f, final: %.3f, grade: %d\n", one->score.browningscore, one->score.drytimescore, one->score.fadescore, one->score.transferredscore, one->score.finalscore, one->score.grade);
+    for (int i = 0; i < LEN; i++) {
+        ptr[i] = score[i].get();
 
-    printf("browning: %.3f, drytime: %.3f, fade: %.3f, transferred: %.3f, final: %.3f, grade: %d\n", two->score.browningscore, two->score.drytimescore, two->score.fadescore, two->score.transferredscore, two->score.finalscore, two->score.grade);
+        writedata(ptr[i]);
 
-    writedata(one);
-    writedata(two);
-
-    release_score_data(one);
-    release_score_data(two);
+        // release_score_data(ptr[i]);
+    }
 
     SafeReleaseNULL(sqlins);
 
@@ -101,6 +107,10 @@ sqlfscore* getscoredata(const char* name, fdata* flower_data, int sqlnum) {
 
 void release_score_data(sqlfscore* data) {
     SafeReleaseNULL(data);
+}
+
+void DynamicCast_deinit() {
+    SafeReleaseNULL(sqlins);
 }
 
 void detectargs(int argc, char **argv) {

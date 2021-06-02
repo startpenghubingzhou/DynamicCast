@@ -33,5 +33,7 @@ fdata FreshFlower::get_data() {
 
     data.h_average = tmp.h_average;
 
+    data.color = tmp.color;
+
     return data;
 }

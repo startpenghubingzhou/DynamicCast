@@ -290,7 +290,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cpplint --recursive --filter=-build/header_guard,-build/c++11,-build/namespaces,-whitespace/line_length,-runtime/int,-runtime/references,-readability/inheritance ./";
+			shellScript = "cpplint --recursive --filter=-build/header_guard,-build/c++11,-build/namespaces,-whitespace/line_length,-runtime/int,-runtime/references,-readability/inheritance,-runtime/printf ./";
 		};
 /* End PBXShellScriptBuildPhase section */
 

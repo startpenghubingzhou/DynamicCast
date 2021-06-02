@@ -11,8 +11,7 @@
 
 #include <sys/stat.h>
 #include <math.h>
-#include <iostream>
-#include <opencv2/opencv.hpp>
+#include <stdlib.h>
 
 /* This files included all the definations and structures
    that the project used. */
@@ -98,20 +97,35 @@ typedef struct color_range {
 }colorrange;
 
 // color_range_hsv: a struct containing the range data of colors in HSV space
-static struct color_range_hsv {
-    colorrange pink = {160, 180, 0, 255, 0, 255};
-    colorrange black = {0, 180, 0, 255, 0, 46};
-    colorrange gray = {0, 180, 0, 43, 46, 220};
-    colorrange white = {0, 180, 0, 30, 221, 255};
-    colorrange red1 = {156, 180, 43, 255, 46, 255};
-    colorrange red2 = {0, 10, 43, 255, 46, 255};
-    colorrange orange = {11, 25, 43, 255, 46, 255};
-    colorrange yellow = {26, 34, 43, 255, 46, 255};
-    colorrange green = {35, 77, 43, 255, 46, 255};
-    colorrange cyan = {78, 99, 43, 255, 46, 255};
-    colorrange blue = {100, 124, 43, 255, 46, 255};
-    colorrange purple = {122, 155, 43, 255, 46, 255};
-}hsvrange;
+struct color_range_hsv {
+    colorrange pink;
+    colorrange black;
+    colorrange gray;
+    colorrange white;
+    colorrange red1;
+    colorrange red2;
+    colorrange orange;
+    colorrange yellow;
+    colorrange green;
+    colorrange cyan;
+    colorrange blue;
+    colorrange purple;
+};
+
+static struct color_range_hsv hsvrange = {
+    {160, 180, 0, 255, 0, 255},
+    {0, 180, 0, 255, 0, 46},
+    {0, 180, 0, 43, 46, 220},
+    {0, 180, 0, 30, 221, 255},
+    {156, 180, 43, 255, 46, 255},
+    {0, 10, 43, 255, 46, 255},
+    {11, 25, 43, 255, 46, 255},
+    {26, 34, 43, 255, 46, 255},
+    {35, 77, 43, 255, 46, 255},
+    {78, 99, 43, 255, 46, 255},
+    {100, 124, 43, 255, 46, 255},
+    {122, 155, 43, 255, 46, 255}
+};
 
 // hsv_pixel_data: a struct that described the hsv data for one pixel
 typedef struct hsv_pixel_data {
@@ -158,17 +172,13 @@ typedef struct flower_score {
     uint8_t grade;
 }fscore;
 
-typedef struct cvhelper_based_data {
-    cv::Mat imghsv;
-    double h_average;
-}basedata;
-
 /* Fresh_flower_data: a struct containing the neccesary data
    of a fresh flower. */
 typedef struct fresh_flower_data {
     double k, b, t;
     time_t time;
     double h_average;
+    int color;
 }fdata;
 
 /* Dried_flower_data: a struct containing the neccesary data
@@ -185,8 +195,8 @@ typedef struct dried_flower_data {
  that will be written to the database. */
 typedef struct flower_data_sql {
     fscore score;
-    const char* time;
-    const char* name;
+    char time[15];
+    char name[1024];
     int num;
 }sqlfscore;
 #endif /* Basedefs_h */

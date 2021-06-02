@@ -49,6 +49,8 @@ void CVHelper::convert_hsv(Mat& hsvimage) {
 
     image.copyTo(*tmp, result);
 
+    imwrite("/Users/penghubingzhou/Desktop/debug.jpg", *tmp);
+
     cvtColor(*tmp, hsvimage, COLOR_BGR2HSV);
 
     SafeReleaseNULL(tmp);
@@ -185,9 +187,20 @@ void CVHelper::prase_data(basedata& thedata) {
         }
     }
 
+    funcprint("color num: white %d, pink %d, green %d, blue %d, purple %d, red %d, loc %d\n",
+              num_flowers.white,
+              num_flowers.pink,
+              num_flowers.green,
+              num_flowers.blue,
+              num_flowers.purple,
+              num_flowers.red,
+              loc);
+
     funcprint("the flower's color is: %s, the h average data is : %.3f\n", name.c_str(), havg);
 
     thedata.h_average = havg;
+
+    thedata.color = loc;
 }
 
 bool CVHelper::hsvinrange(hsvdata pixel, colorrange range) {

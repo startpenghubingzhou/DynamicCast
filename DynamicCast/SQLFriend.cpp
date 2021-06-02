@@ -7,6 +7,8 @@
 //
 
 #include "SQLFriend.hpp"
+#include <string.h>
+
 SQLFriend::SQLFriend(const char* path) {
     int ret;
     int ncol, nrow;
@@ -22,7 +24,7 @@ SQLFriend::SQLFriend(const char* path) {
     // get the number of cols from the database
     sqlite3_get_table(ins, "select count(*) from DriedFlowerData", &tmp, &nrow, &ncol, nullptr);
 
-    size = atoi(tmp[nrow]);
+    sqlsize = atoi(tmp[nrow]);
 
     sqlite3_free_table(tmp);
 }
@@ -46,15 +48,15 @@ int SQLFriend::readdata(int num, sqlfscore* data) {
 
     ret = sqlite3_get_table(ins, exec, &tmp, &nrow, &ncol, nullptr);
 
-    if (ret != SQLITE_OK || *tmp == nullptr) {
+    if (ret != SQLITE_OK || nrow == 0) {
         ret = SQLF_FAILED;
         goto read_result;
     }
 
     // fill the sqldata field
     data->num = atoi(tmp[ncol]);
-    data->name = tmp[ncol + 1];
-    data->time = tmp[ncol + 2];
+    strcpy(data->name, tmp[ncol + 1]);
+    strcpy(data->time, tmp[ncol + 2]);
     data->score.browningscore = atof(tmp[ncol + 3]);
     data->score.fadescore = atof(tmp[ncol + 4]);
     data->score.transferredscore = atof(tmp[ncol + 5]);
@@ -95,6 +97,10 @@ int SQLFriend::writedata(sqlfscore* data) {
     ret = sqlite3_exec(ins, exec, nullptr, nullptr, nullptr);
 
 write_result:
+    if (ret == 0) {
+        sqlsize++;
+    }
+
     return ret;
 }
 
@@ -118,9 +124,14 @@ int SQLFriend::deletedata(int num) {
 
 delete_result:
     SafeReleaseNULL(data);
+
+    if (ret == 0) {
+        sqlsize--;
+    }
+
     return ret;
 }
 
 int SQLFriend::getsize() {
-    return size;
+    return sqlsize;
 }

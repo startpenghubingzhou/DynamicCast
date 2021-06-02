@@ -30,7 +30,7 @@ class SQLFriend {
  private:
     sqlite3* ins;
 
-    int size;
+    int sqlsize;
 };
 
 #endif /* SQLFriend_hpp */

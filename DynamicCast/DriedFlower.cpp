@@ -31,7 +31,7 @@ uint32_t DriedFlower::calculate_faded(Mat& image) {
     int loc;
 
     data = super::num_flowers;
-    loc = super::loc;
+    loc = origin_data.color;
 
     /* Since it is proved that only green flowers have
        faded, we 'll set this score to 100 for other
@@ -184,9 +184,11 @@ sqlfscore DriedFlower::get_score(int sqlnum) {
     snprintf(timestr, DATELEN, "%d.%d.%d", (timeptr->tm_year) + 1900, (timeptr->tm_mon) + 1, timeptr->tm_mday);
 
     sqldata.num = sqlnum;
-    sqldata.name = sqlpath;
-    sqldata.time = reinterpret_cast<const char*>(new char[DATELEN]);
-    strncpy(const_cast<char*>(sqldata.time), &timestr[0], DATELEN);
+    strcpy(sqldata.name, sqlpath);
+    // sqldata.name = sqlpath;
+    strcpy(sqldata.time, timestr);
+    // sqldata.time = reinterpret_cast<const char*>(new char[DATELEN]);
+    // strncpy(const_cast<char*>(sqldata.time), &timestr[0], DATELEN);
     sqldata.score = __get_score();
 
     return sqldata;
